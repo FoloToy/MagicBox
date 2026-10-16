@@ -2,6 +2,10 @@
 
 # MagicBox 多代硬件 BSP
 
+<p align="center">
+  <img src="docs/images/magicbox.png" alt="白色与绿色的 MagicBox 设备" width="480">
+</p>
+
 [English](README.md) · [架构与版本规则](docs/ARCHITECTURE.md) · [验证记录](docs/VALIDATION.md)
 
 按“型号 + 芯片 + PCB 版本”选择硬件。同为 S3 不代表引脚、电源或器件相同，不做自动猜板。
