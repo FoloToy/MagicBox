@@ -3,6 +3,7 @@
 import argparse,hashlib,json,os,re,shutil,subprocess,sys,tempfile
 from pathlib import Path
 from profiles import ROOT,profiles,select
+from staging import sync_tree
 
 def main():
     parser=argparse.ArgumentParser()
@@ -29,10 +30,8 @@ def main():
         parser.error('Refusing unowned build cache '+str(cache))
     cache.mkdir(parents=True,exist_ok=True);owner.write_text(json.dumps({'source':str(ROOT)}))
     stage=cache/'project';stage.mkdir(exist_ok=True)
-    command=['rsync','-a','--delete']
-    for name in ['build/','build-*/','managed_components/','sdkconfig','sdkconfig.old','dependencies.lock','__pycache__/']:
-        command+=['--exclude',name]
-    subprocess.run(command+[str(ROOT/profile['project'])+'/',str(stage)+'/'],check=True)
+    sync_tree(ROOT/profile['project'],stage,
+        ['build/','build-*/','managed_components/','sdkconfig','sdkconfig.old','dependencies.lock','__pycache__/'])
     project=stage if args.app=='baseline' else stage/'examples/hardware-demo'
     build=cache/('build-'+args.app)
     subprocess.run([sys.executable,str(sdk/'tools/idf.py'),'-C',str(project),'-B',str(build),
