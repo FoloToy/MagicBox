@@ -17,7 +17,7 @@
 
 - `main`：BSP、最小入口、独立硬件诊断示例。
 - `demo/xiaozhi` 分支：继承 main，加入小智应用。目前 M09 移植有历史实机记录；不把 C5 BSP 编译通过标成 C5 小智已适配。
-- `legacy/m09-arduino`：保留原 Arduino BSP/最小示例/硬件 Demo；共享 M09 引脚定义。新 ESP-IDF BSP 与 Arduino 是两个实现，不能把旧的实机通过记录当作新 BSP 已刷机验收。
+原 Arduino 实现请查看已归档的 [magicbox-arduino 仓库](https://github.com/FoloToy/magicbox-arduino)。本仓库保留原生 ESP-IDF 实现；历史实机记录不代表新 BSP 已完成实机验收。
 
 ```sh
 python3 tools/build.py --list
