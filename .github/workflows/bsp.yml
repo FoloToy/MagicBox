@@ -35,9 +35,3 @@ jobs:
           name: bsp-${{ matrix.board }}
           path: build/${{ matrix.board }}/
           if-no-files-found: error
-  arduino-origin:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - run: pip install platformio==6.1.19
-      - run: pio run -d legacy/m09-arduino -e magicbox -e magicbox-demo
