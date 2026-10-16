@@ -28,3 +28,11 @@ C5 physical model mapping, audio/power/peripheral acceptance and motion-wake are
 - Original public M09 Arduino BSP and working native XiaoZhi port: [FoloToy/magicbox-arduino at 8bab884](https://github.com/FoloToy/magicbox-arduino/tree/8bab8841109f7c891b70f4705a61473767495056). Owner identifies the tested HW2.1.0 / S3 device as M09. Native standalone M09 BSP is a new adaptation, not the old Arduino implementation.
 - Public C5 reference BSP: [FoloToy/magicbox-c5 at f889d36](https://github.com/FoloToy/magicbox-c5/tree/f889d36f721dce7c503cdacf67f18de12a082ca2), source M301 HW1.2.0. Sales/model mapping is pending owner confirmation.
 - XiaoZhi upstream (demo branch only): [78/xiaozhi-esp32 at 6cb0153](https://github.com/78/xiaozhi-esp32/tree/6cb01531c2ae961eb3fd64c5e97f65d20a597f7e), version 2.5.3, MIT. Original upstream licenses remain in place; no private product application, identity backup or credentials were imported.
+
+## New repository XiaoZhi variant
+
+PASS: native ESP-IDF 6.1 build of `folotoy-magicbox-m09-s3-hw210` with board type `magicbox-m09-s3-hw210`. Local application size 2,196,464 bytes, SHA256 `da64e9ad5fad53aa25e2128836c6f368aab9f02132a4f8703881090d72d76f9e`; fits the preserved 4MB application slot. Generated sdkconfig selects ESP32-S3 and the explicit M09 HW2.1.0 board.
+
+PASS: all 129 XiaoZhi host tests (one conditional skip), plus 8 repository/profile/staging/CLI tests. Missing board selection, C5 XiaoZhi selection and upstream variant override are rejected. The build wrapper now uses Python staging, preserving generated dependencies while removing obsolete sources. Shared M09 pins and LIS3DH primitive come from the BSP.
+
+No newly named image was flashed during repository migration. Earlier hardware acceptance remains inherited evidence from the original port; C5 XiaoZhi is not implemented.

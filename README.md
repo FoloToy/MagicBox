@@ -1,3 +1,5 @@
+> This is the `demo/xiaozhi` branch. It contains the BSPs from main plus the M09 XiaoZhi port. [XiaoZhi build/validation guide](docs/XIAOZHI.md).
+
 # MagicBox
 
 Multi-generation FoloToy MagicBox hardware BSPs. Select **model + chip + PCB revision**, not chip alone. [中文说明](README.zh_CN.md) · [Architecture](docs/ARCHITECTURE.md) · [Validation](docs/VALIDATION.md)

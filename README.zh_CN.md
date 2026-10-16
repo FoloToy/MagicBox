@@ -1,3 +1,5 @@
+> 当前为 `demo/xiaozhi` 分支，在 main 的 BSP 基础上加入 M09 小智移植。[小智构建与验证说明](docs/XIAOZHI.md)。
+
 # MagicBox 多代硬件 BSP
 
 [English](README.md) · [架构与版本规则](docs/ARCHITECTURE.md) · [验证记录](docs/VALIDATION.md)

@@ -1,0 +1,33 @@
+name: M09 XiaoZhi
+on: [push, pull_request, workflow_dispatch]
+permissions:
+  contents: read
+jobs:
+  m09:
+    runs-on: ubuntu-latest
+    container:
+      image: espressif/idf:release-v6.1
+    steps:
+      - uses: actions/checkout@v4
+      - name: Host and explicit-board checks
+        shell: bash
+        run: |
+          . "$IDF_PATH/export.sh"
+          python tools/check_repo.py
+          python -m unittest discover -s tests -v
+          cd apps/xiaozhi
+          python -m unittest discover -s scripts/tests -v
+      - name: Build M09 revision-specific variant
+        shell: bash
+        run: |
+          . "$IDF_PATH/export.sh"
+          ./tools/build_xiaozhi.sh --board m09-s3-hw210
+      - uses: actions/upload-artifact@v4
+        with:
+          name: xiaozhi-m09-s3-hw210
+          path: |
+            apps/xiaozhi/build/xiaozhi.bin
+            apps/xiaozhi/build/xiaozhi.sha256
+            apps/xiaozhi/build/magicbox-build.json
+            apps/xiaozhi/build/partition_table/partition-table.bin
+          if-no-files-found: error
