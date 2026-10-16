@@ -11,6 +11,7 @@
 
 #include <esp_adc/adc_oneshot.h>
 #include <esp_log.h>
+#include <ssid_manager.h>
 
 namespace {
 constexpr char kTag[] = "FoloToyMagicBox";
@@ -48,6 +49,16 @@ public:
             vTaskDelete(knob_task_);
         if (adc_)
             ESP_ERROR_CHECK(adc_oneshot_del_unit(adc_));
+    }
+
+    void StartNetwork() override {
+        auto& ssids = SsidManager::GetInstance();
+        // Seed only an unconfigured device; keep networks saved through provisioning.
+        if (ssids.GetSsidList().empty()) {
+            ssids.AddSsid("FOLOTOY_LAND", "makeitanything");
+            ESP_LOGI(kTag, "Installed default WiFi network");
+        }
+        WifiBoard::StartNetwork();
     }
 
     AudioCodec* GetAudioCodec() override { return &codec_; }

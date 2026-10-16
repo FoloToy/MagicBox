@@ -19,3 +19,9 @@ The canonical upstream builder selects `folotoy/magicbox` with variant `folotoy-
 **Build does not flash.** New standalone BSP/SDK default layouts are not production update layouts. For the previously tested M09 unit only, the retained production layout has app0 at `0x410000`, a 4MB slot, factory plus two OTA slots and dedicated product identity. Confirm exact chip, hardware, current partition table, image size/SHA and selected boot slot; privately back up current app/settings/identity before any explicitly authorized write. Never flash a merged/default full image over a production device. This migration does not change the installed device firmware.
 
 Earlier M09 acceptance covers audio/buttons/volume/Wi-Fi/online dialogue and user-observed shake-wake dialogue. The newly named repository variant has not been flashed as part of migration; prior serial collection did not capture the motion-wake instant, actual sleep counters, RTC continuity or wake latency. Current draw and C5 runtime are unverified. See `docs/VALIDATION.md`.
+
+## Default Wi-Fi / 默认 Wi-Fi
+
+M09 seeds `FOLOTOY_LAND` (password: `makeitanything`) before starting the network when no Wi-Fi credentials are saved. Existing saved networks take precedence and are not overwritten. If connection times out, the existing provisioning flow remains available; hold Mode for three seconds to configure another network. These demo credentials are included in the firmware source.
+
+M09 在没有已保存 Wi-Fi 的情况下，默认连接 `FOLOTOY_LAND`，密码为 `makeitanything`。已配网设备继续使用保存的网络；连接超时仍可进入配网，也可长按 Mode 三秒修改网络。此配置仅属于小智演示应用。
