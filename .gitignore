@@ -1,0 +1,10 @@
+**/build/
+**/build-*/
+**/.pio/
+**/managed_components/
+**/sdkconfig
+**/sdkconfig.old
+**/dependencies.lock
+**/__pycache__/
+**/releases/
+.DS_Store

@@ -1,0 +1,43 @@
+name: BSP matrix
+on: [push, pull_request, workflow_dispatch]
+permissions:
+  contents: read
+jobs:
+  host:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: python3 tools/check_repo.py
+      - run: python3 -m unittest discover -s tests -v
+      - run: python3 boards/c5-reference-m301-hw120/esp-idf/tests/run_button_tests.py
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - board: m09-s3-hw210
+            sdk: release-v6.1
+          - board: c5-reference-m301-hw120
+            sdk: v5.5.3
+    container:
+      image: espressif/idf:${{ matrix.sdk }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build baseline and hardware diagnostic
+        shell: bash
+        run: |
+          . "$IDF_PATH/export.sh"
+          python tools/build.py --board '${{ matrix.board }}' --app baseline
+          python tools/build.py --board '${{ matrix.board }}' --app hardware-demo
+      - uses: actions/upload-artifact@v4
+        with:
+          name: bsp-${{ matrix.board }}
+          path: build/${{ matrix.board }}/
+          if-no-files-found: error
+  arduino-origin:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: pip install platformio==6.1.19
+      - run: pio run -d legacy/m09-arduino -e magicbox -e magicbox-demo

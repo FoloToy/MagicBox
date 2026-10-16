@@ -1,0 +1,12 @@
+dependencies:
+  idf: ">=5.5.3,<5.6.0"
+  espressif/button: "4.1.7"
+  espressif/esp_codec_dev: "1.5.10"
+  espressif/led_strip: "3.0.3"
+  folotoy/folotoy-firmware-driver:
+    git: https://github.com/FoloToy/folotoy-firmware-driver-open-source.git
+    version: "f9982b1518d6689023af7d0baa48070f7fe920d7"
+
+description: FoloToy magicbox-c5 hardware BSP
+license: MIT
+version: 0.1.0

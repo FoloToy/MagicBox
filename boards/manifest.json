@@ -1,0 +1,50 @@
+{
+  "schema_version": 1,
+  "profiles": [
+    {
+      "id": "m09-s3-hw210",
+      "model": "M09",
+      "hardware_revision": "2.1.0",
+      "target": "esp32s3",
+      "original_framework": "arduino",
+      "idf_series": "6.1",
+      "project": "boards/m09-s3-hw210/esp-idf",
+      "pins": "boards/m09-s3-hw210/esp-idf/components/bsp/include/bsp_pins.h",
+      "model_mapping": "confirmed by owner",
+      "capabilities": [
+        "digital_i2s_audio",
+        "rgb",
+        "buttons",
+        "external_mode",
+        "knob",
+        "lis3dh_motion",
+        "internal_rtc"
+      ],
+      "xiaozhi": "m09-s3-hw210",
+      "validation": "Prior Arduino and XiaoZhi device tests; new standalone ESP-IDF BSP requires device acceptance."
+    },
+    {
+      "id": "c5-reference-m301-hw120",
+      "model": null,
+      "source_model": "M301",
+      "hardware_revision": "1.2.0",
+      "target": "esp32c5",
+      "original_framework": "esp-idf",
+      "idf_series": "5.5.3",
+      "project": "boards/c5-reference-m301-hw120/esp-idf",
+      "pins": "boards/c5-reference-m301-hw120/esp-idf/components/bsp/include/bsp_pins.h",
+      "model_mapping": "pending owner confirmation; reference only",
+      "capabilities": [
+        "es8311_audio",
+        "rgb",
+        "buttons",
+        "knob",
+        "axp2101",
+        "bm8563_rtc",
+        "gx8002"
+      ],
+      "xiaozhi": null,
+      "validation": "Source configuration and compiler only; physical unit not tested in this task."
+    }
+  ]
+}

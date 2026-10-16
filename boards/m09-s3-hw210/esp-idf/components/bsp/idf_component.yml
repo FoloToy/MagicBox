@@ -1,0 +1,5 @@
+dependencies:
+  idf: ">=6.1,<6.2"
+  espressif/led_strip: "3.0.3"
+license: MIT
+version: 0.1.0
