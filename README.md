@@ -1,7 +1,7 @@
 # MagicBox
 
 <p align="center">
-  <img src="docs/images/magicbox.png" alt="MagicBox devices in white and teal" width="480">
+  <img src="docs/images/magicbox-overview.png" alt="MagicBox kit, devices and hands-on clay creation" width="960">
 </p>
 
 Multi-generation FoloToy MagicBox hardware BSPs. Select **model + chip + PCB revision**, not chip alone. [中文说明](README.zh_CN.md) · [Architecture](docs/ARCHITECTURE.md) · [Validation](docs/VALIDATION.md)
