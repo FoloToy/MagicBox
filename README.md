@@ -15,6 +15,15 @@ Multi-generation FoloToy MagicBox hardware BSPs. Select **model + chip + PCB rev
 
 `main` contains BSPs, minimal entry points and separate hardware diagnostics. The [`demo/xiaozhi`](https://github.com/FoloToy/MagicBox/tree/demo/xiaozhi) branch adds the XiaoZhi application. The current BSPs and XiaoZhi firmware use native ESP-IDF. M09's original Arduino implementation is available in the archived [magicbox-arduino repository](https://github.com/FoloToy/magicbox-arduino). C5 BSP availability does not imply a validated C5 XiaoZhi port.
 
+## Default Wi-Fi
+
+| Setting | Value |
+|---|---|
+| SSID | `FOLOTOY_LAND` |
+| Password | `makeitanything` |
+
+The M09 XiaoZhi demo uses this default only when no Wi-Fi network is saved. Previously configured networks remain in use. Hold Mode for three seconds to configure another network. [Build and usage details](docs/XIAOZHI.md).
+
 ```sh
 python3 tools/build.py --list
 # Activate the SDK required by the selected profile, then:
