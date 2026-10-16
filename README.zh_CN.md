@@ -3,7 +3,7 @@
 # MagicBox 多代硬件 BSP
 
 <p align="center">
-  <img src="docs/images/magicbox.png" alt="白色与绿色的 MagicBox 设备" width="480">
+  <img src="docs/images/magicbox-overview.png" alt="MagicBox 套装、设备与黏土手作示例" width="960">
 </p>
 
 [English](README.md) · [架构与版本规则](docs/ARCHITECTURE.md) · [验证记录](docs/VALIDATION.md)

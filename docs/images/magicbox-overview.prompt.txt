@@ -1,0 +1,10 @@
+Tool: built-in imagegen
+Task: composite three user-provided MagicBox photographs into a README hero.
+
+Inputs (in order):
+1. Existing docs/images/magicbox.png product stack.
+2. User-provided FoloToy boxed craft kit photograph.
+3. User-provided hands-on clay creation photograph.
+
+Prompt:
+Create one polished wide photographic collage for the GitHub README of FoloToy MagicBox. This is a compositing task using the three provided photographs, not a redesign of the products. Image 1 is the clean product stack on ivory; image 2 is the boxed craft kit with clay octopus; image 3 is hands making a clay character on a laptop. Use image 2 as a dominant left panel occupying about 65% of the width; place image 1 in a smaller upper-right panel and image 3 in a lower-right panel. Wide overall aspect ratio approximately 16:9. Consistent narrow ivory gutters and a modest ivory outer margin, precise clean alignment, subtle rounded panel corners if appropriate. Preserve the original photographic content, exact product shapes, hands, packaging, logos and existing lettering. Fit photographs without stretching; avoid cropping the boxed kit, octopus or clay figure. Keep the full product stack visible. Do not add text, captions, badges, extra decorations, fake products or new logos. Balance the cream studio photography with the darker DIY photo into an attractive coherent README hero. Output a high quality single raster image.
