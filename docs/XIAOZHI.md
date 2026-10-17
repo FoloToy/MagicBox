@@ -25,3 +25,27 @@ Earlier M09 acceptance covers audio/buttons/volume/Wi-Fi/online dialogue and use
 M09 seeds `FOLOTOY_LAND` (password: `makeitanything`) before starting the network when no Wi-Fi credentials are saved. Existing saved networks take precedence and are not overwritten. If connection times out, the existing provisioning flow remains available; hold Mode for three seconds to configure another network. These demo credentials are included in the firmware source.
 
 M09 在没有已保存 Wi-Fi 的情况下，默认连接 `FOLOTOY_LAND`，密码为 `makeitanything`。已配网设备继续使用保存的网络；连接超时仍可进入配网，也可长按 Mode 三秒修改网络。此配置仅属于小智演示应用。
+
+## Local MagicBox-Server test / 本地服务联调
+
+Use the separately named M09 local variant for the current test machine:
+
+```sh
+source /path/to/esp-idf-v6.1/export.sh
+./tools/build_xiaozhi.sh --board m09-s3-hw210 --variant folotoy-magicbox-m09-s3-hw210-local
+```
+
+This variant uses `http://192.168.1.172:8988/xiaozhi/ota/`; the server supplies
+`ws://192.168.1.172:8988/xiaozhi/v1/` after account enrollment. The computer and
+device must be on a mutually reachable LAN. This is an HTTP/WS development
+endpoint; use TLS for deployment beyond the trusted test LAN. A changed computer
+IP requires updating the variant and the server's advertised URL together.
+The standard `folotoy-magicbox-m09-s3-hw210` variant retains its upstream endpoint.
+A saved provisioning `wifi/ota_url` takes precedence over the build default.
+
+The local variant retains Voice/Mode/external Mode, knob volume, microphone gain,
+and motion wake. It changes the service endpoint without clearing saved Wi-Fi
+or product identity. Build metadata records the selected variant and image SHA.
+For the previously tested unit, update the verified running app0 slot only;
+never use `merged-binary.bin` for this operation. Device backups and raw logs
+belong outside the repository.

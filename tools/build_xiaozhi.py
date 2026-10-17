@@ -18,6 +18,9 @@ PROJECT = ROOT / "apps/xiaozhi"
 def main():
     parser = argparse.ArgumentParser(description="Explicit MagicBox XiaoZhi profile")
     parser.add_argument("--board", required=True)
+    parser.add_argument("--variant", default="folotoy-magicbox-m09-s3-hw210",
+                        choices=["folotoy-magicbox-m09-s3-hw210",
+                                 "folotoy-magicbox-m09-s3-hw210-local"])
     args = parser.parse_args()
     try:
         profile = select(args.board)
@@ -53,7 +56,7 @@ def main():
             shutil.copytree(PROJECT / "managed_components", project / "managed_components")
         print("Building in whitespace-free cache:", project, flush=True)
     command = [sys.executable, "scripts/build.py", "folotoy/magicbox", "--name",
-               "folotoy-magicbox-m09-s3-hw210", "--language", "zh-CN"]
+               args.variant, "--language", "zh-CN"]
     result = subprocess.run(command, cwd=project)
     if result.returncode:
         return result.returncode
@@ -79,7 +82,7 @@ def main():
         (PROJECT / "build/magicbox-build.json").write_text(json.dumps({
             "profile": profile["id"], "target": profile["target"],
             "model": profile["model"], "hardware_revision": profile["hardware_revision"],
-            "variant": "folotoy-magicbox-m09-s3-hw210", "sha256": checksum,
+            "variant": args.variant, "sha256": checksum,
             "size": image.stat().st_size, "device_test": "not performed by build tool"
         }, indent=2) + "\n")
     return 0
