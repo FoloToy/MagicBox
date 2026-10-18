@@ -54,7 +54,7 @@ void WifiBoard::StartNetwork() {
 
     // Initialize WiFi manager
     WifiManagerConfig config;
-    config.ssid_prefix = "Xiaozhi";
+    config.ssid_prefix = CONFIG_WIFI_AP_SSID_PREFIX;
     config.language = Lang::CODE;
     config.show_ota_config = true;
     config.show_sleep_config = true;

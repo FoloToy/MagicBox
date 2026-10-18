@@ -22,9 +22,9 @@ Earlier M09 acceptance covers audio/buttons/volume/Wi-Fi/online dialogue and use
 
 ## Cloud service and provisioning / 云端服务与配网
 
-The standard M09 variant defaults to `https://magic.folotoy.cn/xiaozhi/ota/`. With no saved Wi-Fi, it starts the XiaoZhi provisioning hotspot; open `http://192.168.4.1` from a phone connected to that hotspot. After connecting to Wi-Fi, register or sign in at [Magic Server](https://magic.folotoy.cn) and bind the device with its activation code. Hold Mode for three seconds to reconfigure Wi-Fi.
+The standard M09 variant defaults to `https://magic.folotoy.cn/xiaozhi/ota/`. With no saved Wi-Fi, it starts the `FoloToy-XXXX` provisioning hotspot; open `http://192.168.4.1` from a phone connected to that hotspot. After connecting to Wi-Fi, register or sign in at [Magic Server](https://magic.folotoy.cn) and bind the device with its activation code. Hold Mode for three seconds to reconfigure Wi-Fi.
 
-M09 标准版本默认连接云端 Magic Server。没有已保存网络时直接开启小智配网热点；手机连接热点后访问 `http://192.168.4.1` 配置 Wi-Fi，再到 [Magic Server](https://magic.folotoy.cn) 注册或登录，使用设备激活码绑定。长按 Mode 三秒可重新配网。
+M09 标准版本默认连接云端 Magic Server。没有已保存网络时直接开启 `FoloToy-XXXX` 配网热点；手机连接热点后访问 `http://192.168.4.1` 配置 Wi-Fi，再到 [Magic Server](https://magic.folotoy.cn) 注册或登录，使用设备激活码绑定。长按 Mode 三秒可重新配网。
 
 Only the separate `-local` variant enables `CONFIG_FOLOTOY_MAGICBOX_DEMO_WIFI` and seeds `FOLOTOY_LAND` (password: `makeitanything`) when no Wi-Fi is saved. Existing networks take precedence. The standard cloud variant does not seed these credentials.
 

@@ -21,7 +21,7 @@
 
 ## 网络配置
 
-M09 标准版本默认使用 `https://magic.folotoy.cn/xiaozhi/ota/`，没有已保存网络时直接进入配网。长按 Mode 三秒可重新配网。
+M09 标准版本默认使用 `https://magic.folotoy.cn/xiaozhi/ota/`，没有已保存网络时直接开启 `FoloToy-XXXX` 配网热点。长按 Mode 三秒可重新配网。
 
 独立的 `-local` 本地开发版本仅在没有已保存网络时填入以下演示配置：
 

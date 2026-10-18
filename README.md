@@ -17,7 +17,7 @@ Multi-generation FoloToy MagicBox hardware BSPs. Select **model + chip + PCB rev
 
 ## Network setup
 
-The standard M09 variant connects to Magic Server at `https://magic.folotoy.cn/xiaozhi/ota/` and starts Wi-Fi provisioning when no network is saved. Hold Mode for three seconds to configure another network.
+The standard M09 variant connects to Magic Server at `https://magic.folotoy.cn/xiaozhi/ota/` and starts a `FoloToy-XXXX` Wi-Fi provisioning hotspot when no network is saved. Hold Mode for three seconds to configure another network.
 
 The separate `-local` development variant seeds these demo credentials only when no network is saved:
 
