@@ -16,15 +16,19 @@ The canonical upstream builder selects `folotoy/magicbox` with variant `folotoy-
 
 功能保留：Voice 按住录音、松开发送；Mode 和 GPIO6 外接 Mode 控制会话，长按三秒配网；旋钮控制音量；麦克风 8 倍转换增益；LIS3DH 晃动唤醒；闲置 60 秒启用保留 Wi-Fi 关联的自动浅睡眠。配网、录音、播放和未关闭的会话不进入睡眠。没有唤醒词、显示屏、摄像头或 AEC。
 
-**Build does not flash.** New standalone BSP/SDK default layouts are not production update layouts. For the previously tested M09 unit only, the retained production layout has app0 at `0x410000`, a 4MB slot, factory plus two OTA slots and dedicated product identity. Confirm exact chip, hardware, current partition table, image size/SHA and selected boot slot; privately back up current app/settings/identity before any explicitly authorized write. Never flash a merged/default full image over a production device. This migration does not change the installed device firmware.
+**Build does not flash.** New standalone BSP/SDK default layouts are not production update layouts. For the previously tested M09 unit only, the retained production layout has app0 at `0x410000`, a 4MB slot, factory plus two OTA slots and dedicated product identity. Confirm exact chip, hardware, current partition table, image size/SHA and selected boot slot; privately back up current app/settings/identity before any explicitly authorized write. Never flash a merged/default full image over a production device. The original repository migration did not change installed firmware; see the dated cloud update in `docs/VALIDATION.md` for the later authorized device update.
 
-Earlier M09 acceptance covers audio/buttons/volume/Wi-Fi/online dialogue and user-observed shake-wake dialogue. The newly named repository variant has not been flashed as part of migration; prior serial collection did not capture the motion-wake instant, actual sleep counters, RTC continuity or wake latency. Current draw and C5 runtime are unverified. See `docs/VALIDATION.md`.
+Earlier M09 acceptance covers audio/buttons/volume/Wi-Fi/online dialogue and user-observed shake-wake dialogue. The initial migration did not flash the newly named variant; the later cloud update is recorded separately in `docs/VALIDATION.md`. Prior serial collection did not capture the motion-wake instant, actual sleep counters, RTC continuity or wake latency. Current draw and C5 runtime are unverified. See `docs/VALIDATION.md`.
 
-## Default Wi-Fi / 默认 Wi-Fi
+## Cloud service and provisioning / 云端服务与配网
 
-M09 seeds `FOLOTOY_LAND` (password: `makeitanything`) before starting the network when no Wi-Fi credentials are saved. Existing saved networks take precedence and are not overwritten. If connection times out, the existing provisioning flow remains available; hold Mode for three seconds to configure another network. These demo credentials are included in the firmware source.
+The standard M09 variant defaults to `https://magic.folotoy.cn/xiaozhi/ota/`. With no saved Wi-Fi, it starts the XiaoZhi provisioning hotspot; open `http://192.168.4.1` from a phone connected to that hotspot. After connecting to Wi-Fi, register or sign in at [Magic Server](https://magic.folotoy.cn) and bind the device with its activation code. Hold Mode for three seconds to reconfigure Wi-Fi.
 
-M09 在没有已保存 Wi-Fi 的情况下，默认连接 `FOLOTOY_LAND`，密码为 `makeitanything`。已配网设备继续使用保存的网络；连接超时仍可进入配网，也可长按 Mode 三秒修改网络。此配置仅属于小智演示应用。
+M09 标准版本默认连接云端 Magic Server。没有已保存网络时直接开启小智配网热点；手机连接热点后访问 `http://192.168.4.1` 配置 Wi-Fi，再到 [Magic Server](https://magic.folotoy.cn) 注册或登录，使用设备激活码绑定。长按 Mode 三秒可重新配网。
+
+Only the separate `-local` variant enables `CONFIG_FOLOTOY_MAGICBOX_DEMO_WIFI` and seeds `FOLOTOY_LAND` (password: `makeitanything`) when no Wi-Fi is saved. Existing networks take precedence. The standard cloud variant does not seed these credentials.
+
+仅独立的 `-local` 版本启用演示 Wi-Fi：SSID 为 `FOLOTOY_LAND`，密码为 `makeitanything`，且仅在没有已保存网络时填入。标准云端版本不自动填入演示网络。
 
 ## Local MagicBox-Server test / 本地服务联调
 
@@ -40,7 +44,7 @@ This variant uses `http://192.168.1.172:8988/xiaozhi/ota/`; the server supplies
 device must be on a mutually reachable LAN. This is an HTTP/WS development
 endpoint; use TLS for deployment beyond the trusted test LAN. A changed computer
 IP requires updating the variant and the server's advertised URL together.
-The standard `folotoy-magicbox-m09-s3-hw210` variant retains its upstream endpoint.
+The standard `folotoy-magicbox-m09-s3-hw210` variant uses the HTTPS cloud endpoint above.
 A saved provisioning `wifi/ota_url` takes precedence over the build default.
 
 The local variant retains Voice/Mode/external Mode, knob volume, microphone gain,

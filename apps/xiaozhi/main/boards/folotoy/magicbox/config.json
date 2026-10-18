@@ -20,7 +20,9 @@
                 "CONFIG_USE_SERVER_AEC=n",
                 "CONFIG_PM_ENABLE=y",
                 "CONFIG_FREERTOS_USE_TICKLESS_IDLE=y",
-                "CONFIG_PM_LIGHT_SLEEP_CALLBACKS=y"
+                "CONFIG_PM_LIGHT_SLEEP_CALLBACKS=y",
+                "CONFIG_OTA_URL=\"https://magic.folotoy.cn/xiaozhi/ota/\"",
+                "CONFIG_FOLOTOY_MAGICBOX_DEMO_WIFI=n"
             ]
         },
         {
@@ -41,7 +43,8 @@
                 "CONFIG_PM_ENABLE=y",
                 "CONFIG_FREERTOS_USE_TICKLESS_IDLE=y",
                 "CONFIG_PM_LIGHT_SLEEP_CALLBACKS=y",
-                "CONFIG_OTA_URL=\"http://192.168.1.172:8988/xiaozhi/ota/\""
+                "CONFIG_OTA_URL=\"http://192.168.1.172:8988/xiaozhi/ota/\"",
+                "CONFIG_FOLOTOY_MAGICBOX_DEMO_WIFI=y"
             ]
         }
     ]

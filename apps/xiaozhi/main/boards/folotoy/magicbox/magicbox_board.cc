@@ -52,12 +52,14 @@ public:
     }
 
     void StartNetwork() override {
+#ifdef CONFIG_FOLOTOY_MAGICBOX_DEMO_WIFI
         auto& ssids = SsidManager::GetInstance();
         // Seed only an unconfigured device; keep networks saved through provisioning.
         if (ssids.GetSsidList().empty()) {
             ssids.AddSsid("FOLOTOY_LAND", "makeitanything");
             ESP_LOGI(kTag, "Installed default WiFi network");
         }
+#endif
         WifiBoard::StartNetwork();
     }
 

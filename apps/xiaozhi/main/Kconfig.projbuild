@@ -6,6 +6,14 @@ config OTA_URL
     help
         The application will access this URL to check for new firmwares and server address.
 
+config FOLOTOY_MAGICBOX_DEMO_WIFI
+    bool "Seed the M09 local demo Wi-Fi network"
+    depends on BOARD_TYPE_FOLOTOY_MAGICBOX_M09_S3_HW210
+    default n
+    help
+        Enable only for the local demo variant. The cloud variant starts
+        provisioning when no Wi-Fi credentials are saved.
+
 choice
     prompt "Flash Assets"
     default FLASH_DEFAULT_ASSETS if !USE_EMOTE_MESSAGE_STYLE

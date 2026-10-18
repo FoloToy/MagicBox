@@ -36,3 +36,11 @@ PASS: native ESP-IDF 6.1 build of `folotoy-magicbox-m09-s3-hw210` with board typ
 PASS: all 129 XiaoZhi host tests (one conditional skip), plus 8 repository/profile/staging/CLI tests. Missing board selection, C5 XiaoZhi selection and upstream variant override are rejected. The build wrapper now uses Python staging, preserving generated dependencies while removing obsolete sources. Shared M09 pins and LIS3DH primitive come from the BSP.
 
 No newly named image was flashed during repository migration. Earlier hardware acceptance remains inherited evidence from the original port; C5 XiaoZhi is not implemented.
+
+## Cloud provisioning update — 2026-10-18
+
+PASS: ESP-IDF 6.1 builds of both M09 XiaoZhi variants. Standard cloud image: 2,196,464 bytes, SHA256 `1e1c0130603d31cf0bade829b18a903018f0bc807e88546dad3e2c95505e92d6`. Local variant: 2,196,736 bytes, SHA256 `cda087837435fefb0238b9ac883d9e8d090449186273992fcd1cd10499039d00`. Repository checks and all 8 repository tests passed; XiaoZhi ran 126 tests successfully with 2 dependency-related skips. Touched C++ formatting passed.
+
+New physical-device evidence: the connected, previously identified M09 / ESP32-S3 / HW2.1.0 had the expected production partition table and running app0 slot. The current application/settings/product identity were backed up privately. Only app0 at `0x410000` was updated, with written-data hash verification; application NVS at `0x9000` (16 KiB) was cleared for a fresh setup. Product identity and partition-table hashes matched afterward; factory and other application slots were not written. Serial confirmed the explicit M09 board and transition to Wi-Fi provisioning with an AP and DHCP server. No demo Wi-Fi was seeded.
+
+The cloud account's sole synthetic deployment-test device was removed and the device list was verified empty. User Wi-Fi provisioning, account registration/binding and this physical device's cloud conversation remain for manual acceptance. Audio/buttons/knob/motion acceptance from earlier tests is inherited; those functions were not retested by this update.
