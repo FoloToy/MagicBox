@@ -146,18 +146,16 @@ esp_err_t bsp_power_set_charging_enabled(bool enabled) {
 esp_err_t bsp_power_set_wakeup_rails(bool enabled) {
     if (!s_ready)
         return ESP_ERR_INVALID_STATE;
-    // magicbox_rtc_v1_5G: IO=ALDO4/3.3V, core=BLDO1/1.0V.
-    // Generic VddIO/VddCore helpers target ALDO1/ALDO3 on a different PCB.
     if (enabled) {
-        if (!s_pmu.setALDO4Voltage(3300) || !s_pmu.setBLDO1Voltage(1000) || !s_pmu.enableALDO4())
+        if (!s_pmu.setVddIOVoltage(3300) || !s_pmu.setVddCoreVoltage(1000) || !s_pmu.enableVddIO())
             return ESP_FAIL;
         vTaskDelay(pdMS_TO_TICKS(10));
-        return s_pmu.enableBLDO1() ? ESP_OK : ESP_FAIL;
+        return s_pmu.enableVddCore() ? ESP_OK : ESP_FAIL;
     }
-    if (!s_pmu.disableBLDO1())
+    if (!s_pmu.disableVddCore())
         return ESP_FAIL;
     vTaskDelay(pdMS_TO_TICKS(10));
-    return s_pmu.disableALDO4() ? ESP_OK : ESP_FAIL;
+    return s_pmu.disableVddIO() ? ESP_OK : ESP_FAIL;
 }
 
 esp_err_t bsp_power_enter_sleep() {

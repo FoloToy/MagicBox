@@ -10,6 +10,7 @@ jobs:
       - run: python3 tools/check_repo.py
       - run: python3 -m unittest discover -s tests -v
       - run: python3 boards/c5-reference-m301-hw120/esp-idf/tests/run_button_tests.py
+      - run: python3 boards/m301-c5-rtc-v1-5g/esp-idf/tests/run_button_tests.py
   build:
     runs-on: ubuntu-latest
     strategy:
@@ -19,6 +20,8 @@ jobs:
           - board: m09-s3-hw210
             sdk: release-v6.1
           - board: c5-reference-m301-hw120
+            sdk: v5.5.3
+          - board: m301-c5-rtc-v1-5g
             sdk: release-v6.1
     container:
       image: espressif/idf:${{ matrix.sdk }}
