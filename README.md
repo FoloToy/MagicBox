@@ -1,4 +1,4 @@
-> This is the `demo/magicbox` branch. It contains the BSPs from main plus MagicBox firmware compatible with the XiaoZhi protocol. [Firmware build/validation guide](docs/XIAOZHI.md).
+> This is the `demo/magicbox` branch. It contains the BSPs from main plus MagicBox firmware compatible with the XiaoZhi protocol. [Firmware build/validation guide](docs/MAGICBOX.md).
 
 # MagicBox
 
@@ -40,7 +40,7 @@ The separate `-local` development variant seeds these demo credentials only when
 | SSID | `FOLOTOY_LAND` |
 | Password | `makeitanything` |
 
-[Build and usage details](docs/XIAOZHI.md).
+[Build and usage details](docs/MAGICBOX.md).
 
 ```sh
 python3 tools/build.py --list

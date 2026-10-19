@@ -1,4 +1,4 @@
-> 当前为 `demo/magicbox` 分支，在 main 的 BSP 基础上加入兼容小智协议的 MagicBox 固件。[固件构建与验证说明](docs/XIAOZHI.md)。
+> 当前为 `demo/magicbox` 分支，在 main 的 BSP 基础上加入兼容小智协议的 MagicBox 固件。[固件构建与验证说明](docs/MAGICBOX.md)。
 
 # MagicBox 多代硬件 BSP
 
@@ -44,7 +44,7 @@ M09 标准版本默认使用 `https://magic.folotoy.cn/xiaozhi/ota/`，没有已
 | SSID | `FOLOTOY_LAND` |
 | 密码 | `makeitanything` |
 
-[构建与使用说明](docs/XIAOZHI.md)。
+[构建与使用说明](docs/MAGICBOX.md)。
 
 ```sh
 python3 tools/build.py --list

@@ -57,4 +57,4 @@ voice, buttons and volume, and was used in the Magic Server conversation tests.
 Each release manifest separately records whether that exact binary was flashed;
 a new build is not new physical acceptance. C5's sales model remains unconfirmed
 and its XiaoZhi port is not released. Other S3 PCB revisions need their own
-profiles. See [validation](VALIDATION.md) and [build instructions](XIAOZHI.md).
+profiles. See [validation](VALIDATION.md) and [build instructions](MAGICBOX.md).

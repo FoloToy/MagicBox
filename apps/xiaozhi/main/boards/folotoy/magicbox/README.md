@@ -10,6 +10,6 @@ Build from the outer repository root with ESP-IDF 6.1 (the wrapper handles paths
 ./tools/build_xiaozhi.sh
 ```
 
-See the outer repository's `docs/XIAOZHI.md` and `docs/XIAOZHI.zh_CN.md` for preservation requirements, limitations and validation. Never flash the merged release image over a production device without reviewing its bootloader, partition and data impact.
+See the outer repository's `docs/MAGICBOX.md` and `docs/XIAOZHI.zh_CN.md` for preservation requirements, limitations and validation. Never flash the merged release image over a production device without reviewing its bootloader, partition and data impact.
 
 This variant is M09 / ESP32-S3 / HW2.1.0 only. The original M09 application used Arduino; this application uses ESP-IDF 6.1. Another S3 PCB needs a separately named variant. Motion hardware is supplied by the shared BSP `bsp_motion.h`; audio and sleep/network policy are application-owned.
