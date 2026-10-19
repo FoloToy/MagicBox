@@ -235,7 +235,9 @@ NetworkResult<> Ota::CheckVersion() {
             firmware_url_ = url->valuestring;
         }
 
-        if (cJSON_IsString(version) && cJSON_IsString(url)) {
+        // A service may advertise a placeholder version without a downloadable image.
+        // Do not interrupt provisioning/activation for an empty firmware URL.
+        if (cJSON_IsString(version) && cJSON_IsString(url) && url->valuestring[0] != '\0') {
             // Check if the version is newer, for example, 0.1.0 is newer than 0.0.1
             has_new_version_ = IsNewVersionAvailable(current_version_, firmware_version_);
             if (has_new_version_) {

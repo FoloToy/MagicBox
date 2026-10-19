@@ -2,7 +2,7 @@
 
 简体中文 · [English](BRANCHES.md)
 
-| 分支 | 用途 | M09 默认服务 | 配网热点 |
+| 分支 | 用途 | 默认服务 | 配网热点 |
 |---|---|---|---|
 | `main` | BSP、最小入口和独立硬件诊断 | 无 | 无 |
 | `demo/magicbox` | MagicBox 产品固件，独立 v0.1 版本体系 | `https://magic.folotoy.cn/xiaozhi/ota/` | `FoloToy-XXXX` |
@@ -11,9 +11,7 @@
 原产品分支 `demo/xiaozhi` 已改名为 `demo/magicbox`，新建的同名分支用途不同。
 MagicBox v0.1 固件下载对应 `demo/magicbox`；既有 Release 固定的源码提交仍是构建依据。
 
-两个应用都使用 M09 / S3 / HW2.1.0 硬件配置。原小智服务版本使用独立的构建名称和
-以 `-xiaozhi` 结尾的 OTA 机型标识，避免与 Magic Server 版本混淆。
-C5 有 BSP 不代表已完成 C5 应用移植。
+两个应用均支持 M09 / S3 / HW2.1.0。产品分支另新增独立的 [M301 C5 来源板型适配](../apps/xiaozhi/main/boards/folotoy/magicbox-c5/README.zh_CN.md)，实机验收待完成。原服务分支仍仅支持 M09，使用以 `-xiaozhi` 结尾的独立构建与 OTA 标识。旧 C5 HW1.2.0 参考配置不能用来选择这份新应用。
 
 原服务分支保留上游提交 `6cb01531c2ae961eb3fd64c5e97f65d20a597f7e` 的应用、
 OTA 激活、WebSocket、MQTT/UDP 和 MCP 功能；本次不升级到最新上游版本。

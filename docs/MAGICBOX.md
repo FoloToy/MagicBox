@@ -1,8 +1,10 @@
-# MagicBox M09 firmware / MagicBox 固件
+# MagicBox firmware / MagicBox 固件
 
 This branch inherits all BSP profiles from main and adds the previously tested M09 port of XiaoZhi 2.5.3. Original source: FoloToy/magicbox-arduino at `8bab8841109f7c891b70f4705a61473767495056`; upstream 78/xiaozhi-esp32 at `6cb01531c2ae961eb3fd64c5e97f65d20a597f7e`. MIT notices remain in `apps/xiaozhi`.
 
-当前小智仅支持 **M09 / ESP32-S3 / HW2.1.0**。原始 M09 固件为 Arduino，本应用是原生 ESP-IDF 6.1。C5 在 main 的 BSP 可独立构建；C5 小智尚未移植，命令会明确拒绝，不能拿 S3 固件刷 C5。另一版 S3 同样需单独配置。
+本分支包含 **M09 / ESP32-S3 / HW2.1.0** 和新增 **M301 / ESP32-C5 / RTC-v1-5G 来源板型** 适配，使用原生 ESP-IDF 6.1。M301 实物 PCB 与新固件功能仍待验收，不能使用 S3 固件或烧录地址。另一版 S3 同样需单独配置。
+
+M301: [English guide](../apps/xiaozhi/main/boards/folotoy/magicbox-c5/README.md) · [中文说明](../apps/xiaozhi/main/boards/folotoy/magicbox-c5/README.zh_CN.md). Build with `./tools/build_xiaozhi.sh --board m301-c5-rtc-v1-5g`; its board identity is `magicbox-m301-c5-rtc-v1-5g`. The following original controls/sleep/partition evidence is M09-specific.
 
 ```sh
 source /path/to/esp-idf-v6.1/export.sh

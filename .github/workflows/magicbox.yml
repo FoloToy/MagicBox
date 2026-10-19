@@ -1,9 +1,13 @@
-name: M09 MagicBox
+name: MagicBox firmware
 on: [push, pull_request, workflow_dispatch]
 permissions:
   contents: read
 jobs:
-  m09:
+  firmware:
+    strategy:
+      fail-fast: false
+      matrix:
+        board: [m09-s3-hw210, m301-c5-rtc-v1-5g]
     runs-on: ubuntu-latest
     container:
       image: espressif/idf:release-v6.1
@@ -17,14 +21,14 @@ jobs:
           python -m unittest discover -s tests -v
           cd apps/xiaozhi
           python -m unittest discover -s scripts/tests -v
-      - name: Build M09 revision-specific variant
+      - name: Build explicit hardware variant
         shell: bash
         run: |
           . "$IDF_PATH/export.sh"
-          ./tools/build_xiaozhi.sh --board m09-s3-hw210
+          ./tools/build_xiaozhi.sh --board '${{ matrix.board }}'
       - uses: actions/upload-artifact@v4
         with:
-          name: magicbox-m09-s3-hw210
+          name: magicbox-${{ matrix.board }}
           path: |
             apps/xiaozhi/build/xiaozhi.bin
             apps/xiaozhi/build/xiaozhi.sha256

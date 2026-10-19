@@ -1,0 +1,13 @@
+# C5 production reference from folotoy-firmware-idf 8c013c9; not M09 S3.
+# Build describes the layout; no build command writes this table.
+# Name, Type, SubType, Offset, Size, Flags
+nvs, data, nvs, 0x9000, 0x4000,
+otadata, data, ota, 0xD000, 0x2000,
+phy_init, data, phy, 0xF000, 0x1000,
+storage, data, littlefs, 0x10000, 2M,
+factory, app, factory, 0x210000, 4M,
+app0, app, ota_0, 0x610000, 4M,
+app1, app, ota_1, 0xA10000, 4M,
+model, data, littlefs, 0xE10000, 0xF0000,
+coredump, data, coredump, 0xF00000, 0x20000,
+folotoy, data, nvs, 0xF20000, 0x4000,

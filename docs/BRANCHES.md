@@ -2,7 +2,7 @@
 
 English · [简体中文](BRANCHES.zh_CN.md)
 
-| Branch | Purpose | Default M09 service | Provisioning AP |
+| Branch | Purpose | Default service | Provisioning AP |
 |---|---|---|---|
 | `main` | BSPs, minimal entry points, separate hardware diagnostics | None | None |
 | `demo/magicbox` | MagicBox product firmware, independent v0.1 versioning | `https://magic.folotoy.cn/xiaozhi/ota/` | `FoloToy-XXXX` |
@@ -12,10 +12,7 @@ The former product branch `demo/xiaozhi` was renamed to `demo/magicbox`.
 The new `demo/xiaozhi` has a different purpose. MagicBox v0.1 release downloads
 belong to `demo/magicbox`; immutable release source commits remain authoritative.
 
-Both applications use the M09 S3/HW2.1.0 hardware profile. The original-service
-variant has its own build name and OTA board type ending in `-xiaozhi`, so its
-firmware identity cannot be confused with the Magic Server variant. BSP support
-for C5 does not imply an application port for C5.
+Both applications support M09 S3/HW2.1.0. The product branch additionally contains the independent [M301 C5 source-profile port](../apps/xiaozhi/main/boards/folotoy/magicbox-c5/README.md), with physical acceptance pending. The original-service branch remains M09-only and uses a build/OTA identity ending in `-xiaozhi`. The older C5 HW1.2.0 reference does not select the new M301 application.
 
 The original-service demo retains the upstream application, OTA activation,
 WebSocket/MQTT-UDP transports and MCP functionality from upstream commit

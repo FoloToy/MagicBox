@@ -93,3 +93,18 @@ PASS: repository boundary checks, six profile/staging host tests and actual butt
 | hardware-demo | 357328 | `33f733b0e0a88d1b8ea95203d61d291dddae5de7448919b67ff06c31a2d8766a` |
 
 Read-only ROM identification: ESP32-C5NR4 rev1.0, 16 MB Flash, 4 MB embedded PSRAM. Read-only partition table matches the cited source (factory 0x210000, app0 0x610000, app1 0xA10000, product NVS 0xF20000). No flash/settings/identity write occurred. PCB revision, peripheral/audio/RTC/GX8002/power behavior need separate physical acceptance. [M301 board notes](../boards/m301-c5-rtc-v1-5g/README.md).
+
+## 2026-10-20 M301 MagicBox application port
+
+Added a separate `folotoy/magicbox-c5` adapter and `magicbox-m301-c5-rtc-v1-5g` build/OTA identity on `demo/magicbox`. The new source profile, not the legacy C5 HW1.2.0 reference, selects this application. The BSP is the sole I2C/I2S/codec/PMU/button/ADC/RGB owner. Configuration uses C5 Quad PSRAM, 24 kHz mono ES8311 audio with 30 dB input gain, physical knob volume, Voice push-to-talk, Mode conversation/provisioning and AXP2101 battery reporting. No M09 microphone gain, motion sleep, external Mode pin or wake-chip model is reused.
+
+Default service is Magic Server, provisioning AP prefix FoloToy, with no seeded network. The C5 partition CSV was compared entry-for-entry with the read-only device table. A local inspection of the server OTA response implementation found a placeholder version with an empty URL; the product client's version check now ignores empty-URL update offers rather than interrupting activation. This guard does not modify either transport implementation or the original-service branch. No live activation/conversation is claimed for this image.
+
+PASS: repository boundary check; 11 profile/staging/CLI host tests, including cross-profile variant rejection and rejection of the old C5 reference; 126 application host tests with two conditional skips; touched C5 C++ formatting. ESP-IDF 6.1 builds of both product variants after the empty-URL guard:
+
+| Profile | Bytes | SHA256 |
+|---|---|---|
+| m09-s3-hw210 | 2196480 | `97b54f438bd851f55226c197fe523639f1c7a4881bdb76e2da92db7c6751e8fa` |
+| m301-c5-rtc-v1-5g | 1849104 | `19109e0b87ddedc8ebf7c74cb904c0fbe37b7fb7d410e3b2fa914d64eb9533b3` |
+
+PASS: final C5 image chip/version/checksum validation with esptool; Magic Server endpoint and independent board identity present; demo Wi-Fi absent; image fits the 4 MB slot; generated production partition entries match the inspected device. Model is owner-confirmed M301, physical PCB revision remains null. No flashing, erasure, activation, factory/identity update or cloud rollout occurred. Boot/audio/controls/knob/network/activation/dialogue/reconnect/battery/RTC/wake-chip acceptance remains pending; M09 physical results are inherited evidence. [M301 application guide](../apps/xiaozhi/main/boards/folotoy/magicbox-c5/README.md).

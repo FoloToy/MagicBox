@@ -271,6 +271,9 @@ choice BOARD_TYPE
     config BOARD_TYPE_FOLOTOY_MAGICBOX_M09_S3_HW210
         bool "FoloToy MagicBox M09 / HW2.1.0 (ESP32-S3)"
         depends on IDF_TARGET_ESP32S3
+    config BOARD_TYPE_FOLOTOY_MAGICBOX_M301_C5_RTC_V1_5G
+        bool "FoloToy MagicBox M301 / RTC-v1-5G source (ESP32-C5)"
+        depends on IDF_TARGET_ESP32C5
     config BOARD_TYPE_Freenove_ESP32S3_DISPLAY_2_8_LCD
         bool "Freenove ESP32-S3 Display 2.8-inch LCD"
         depends on IDF_TARGET_ESP32S3

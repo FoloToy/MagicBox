@@ -14,7 +14,7 @@ Multi-generation FoloToy MagicBox hardware BSPs. Select **model + chip + PCB rev
 | `c5-reference-m301-hw120` | Historical C5 / source HW1.2.0 | ESP-IDF 5.5.3 | Separate legacy reference |
 | `m301-c5-rtc-v1-5g` | M301 / ESP32-C5 / RTC-v1-5G source | ESP-IDF 6.1 | Owner-confirmed model; physical PCB revision pending |
 
-`main` contains BSPs, minimal entry points and separate hardware diagnostics. The [`demo/magicbox`](https://github.com/FoloToy/MagicBox/tree/demo/magicbox) branch adds MagicBox firmware with XiaoZhi protocol compatibility. The current BSPs and MagicBox firmware use native ESP-IDF. M09's original Arduino implementation is available in the archived [magicbox-arduino repository](https://github.com/FoloToy/magicbox-arduino). C5 BSP availability does not imply a validated C5 XiaoZhi port.
+`main` contains BSPs, minimal entry points and separate hardware diagnostics. The [`demo/magicbox`](https://github.com/FoloToy/MagicBox/tree/demo/magicbox) branch adds MagicBox firmware with XiaoZhi protocol compatibility. The current BSPs and MagicBox firmware use native ESP-IDF. M09's original Arduino implementation is available in the archived [magicbox-arduino repository](https://github.com/FoloToy/magicbox-arduino). M301 C5 now has an independent application port; physical acceptance is pending. [M301 firmware guide](apps/xiaozhi/main/boards/folotoy/magicbox-c5/README.md).
 
 ## Branches
 
