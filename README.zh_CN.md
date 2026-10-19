@@ -17,6 +17,10 @@
 - `demo/xiaozhi` 分支：继承 main，加入小智应用。目前 M09 移植有历史实机记录；不把 C5 BSP 编译通过标成 C5 小智已适配。
 原 Arduino 实现请查看已归档的 [magicbox-arduino 仓库](https://github.com/FoloToy/magicbox-arduino)。本仓库保留原生 ESP-IDF 实现；历史实机记录不代表新 BSP 已完成实机验收。
 
+## 固件下载
+
+[MagicBox v0.1](https://github.com/FoloToy/MagicBox/releases/tag/v0.1) 使用独立的 MagicBox 版本体系，下载文件名按硬件与 MagicBox 版本命名。当前 M09 固件兼容小智协议。[升级说明](https://github.com/FoloToy/MagicBox/blob/demo/xiaozhi/docs/FIRMWARE_RELEASES.zh_CN.md)。
+
 ```sh
 python3 tools/build.py --list
 source /path/to/esp-idf-v6.1/export.sh

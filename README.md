@@ -13,6 +13,10 @@ Multi-generation FoloToy MagicBox hardware BSPs. Select **model + chip + PCB rev
 
 `main` contains BSPs, minimal entry points and separate hardware diagnostics. The [`demo/xiaozhi`](https://github.com/FoloToy/MagicBox/tree/demo/xiaozhi) branch adds the XiaoZhi application. The current BSPs and XiaoZhi firmware use native ESP-IDF. M09's original Arduino implementation is available in the archived [magicbox-arduino repository](https://github.com/FoloToy/magicbox-arduino). C5 BSP availability does not imply a validated C5 XiaoZhi port.
 
+## Firmware downloads
+
+[MagicBox v0.1](https://github.com/FoloToy/MagicBox/releases/tag/v0.1) uses an independent MagicBox version scheme. Download filenames identify the hardware and MagicBox version. The current M09 firmware is compatible with the XiaoZhi protocol. [Update guide](https://github.com/FoloToy/MagicBox/blob/demo/xiaozhi/docs/FIRMWARE_RELEASES.md).
+
 ```sh
 python3 tools/build.py --list
 # Activate the SDK required by the selected profile, then:
