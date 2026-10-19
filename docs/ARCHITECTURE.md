@@ -2,7 +2,7 @@
 
 A profile identifies model + silicon + PCB revision, for example `m09-s3-hw210`. The registry never chooses hardware from the detected chip alone. Missing/unknown profiles and wrong chip selections fail before a build. Add another S3 PCB as a new profile with its own pins, capabilities, provenance and acceptance evidence. No wildcard/default board is allowed.
 
-`boards/<profile>/esp-idf` is an isolated BSP project with its own SDK/dependencies and minimal default main. Diagnostics live under that project's `examples/hardware-demo` and are built separately. M09 uses IDF 6.1; the C5 reference is now built on IDF 6.1, preserving its source power sequencing. SDK constraints are intentionally per profile, not silently widened. C5 sales model mapping is still unknown.
+`boards/<profile>/esp-idf` is an isolated BSP project with its own SDK/dependencies and minimal default main. Diagnostics live under that project's `examples/hardware-demo` and are built separately. M09 uses IDF 6.1; the C5 reference is now built on IDF 6.1, preserving its source power sequencing. SDK constraints are intentionally per profile, not silently widened. The owner confirms C5 model M301; the physical PCB revision is still pending.
 
 The original Arduino implementation is maintained as history in the archived [FoloToy/magicbox-arduino repository](https://github.com/FoloToy/magicbox-arduino); no legacy source tree is included here. The current M09 BSP and XiaoZhi port use native ESP-IDF 6.1.
 

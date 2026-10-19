@@ -43,3 +43,5 @@ PASS: repository boundary check, five host tests and the actual C5 button adapte
 | hardware-demo | 357328 | `a695b98b34ceb9b56d2d812a946b9b9e54d4278531c97a4f322bd7a3d9a20c4a` |
 
 Read-only ROM identification found ESP32-C5NR4 rev1.0, 16 MB Flash, 4 MB embedded PSRAM. Read-only partition-table inspection matched the cited source (factory 0x210000, app0 0x610000, app1 0xA10000, product NVS 0xF20000). No flash/settings/identity write occurred. PCB/model mapping, audio, buttons, knob, RTC, GX8002 and power behavior require physical acceptance of a separately authorized image. [C5 board notes](../boards/c5-reference-m301-hw120/README.md).
+
+Owner follow-up confirms the connected C5 unit is **M301**. Registry model mapping is now confirmed; physical HW1.2.0/PCB and peripheral acceptance remain pending.

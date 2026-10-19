@@ -11,7 +11,7 @@
 | 配置 ID | 硬件 | SDK | 状态 |
 |---|---|---|---|
 | `m09-s3-hw210` | M09 / ESP32-S3 / HW2.1.0 | ESP-IDF 6.1 | 用户确认型号；原始固件使用 Arduino |
-| `c5-reference-m301-hw120` | ESP32-C5 / 原配置 M301 / HW1.2.0 | ESP-IDF 6.1 | 具体产品型号待用户确认，保留参考标识 |
+| `c5-reference-m301-hw120` | ESP32-C5 / 原配置 M301 / HW1.2.0 | ESP-IDF 6.1 | 用户确认 M301；PCB 版本仍沿用来源参考标识 |
 
 - `main`：BSP、最小入口、独立硬件诊断示例。
 - `demo/magicbox` 分支：继承 main，加入兼容小智协议的 MagicBox 固件。目前 M09 移植有历史实机记录；不把 C5 BSP 编译通过标成 C5 小智已适配。

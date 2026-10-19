@@ -2,7 +2,7 @@
 
 [简体中文](README.zh_CN.md) · [Registry](../manifest.json)
 
-This profile keeps the historical source name **M301 / HW1.2.0**. The connected device's sales model and PCB revision remain unconfirmed; it is not M09.
+This profile keeps the historical source name **M301 / HW1.2.0**. The owner confirms the connected device is **M301**; the physical PCB revision remains unconfirmed. It is not M09.
 
 ## Source and hardware
 
