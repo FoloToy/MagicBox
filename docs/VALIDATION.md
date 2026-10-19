@@ -53,10 +53,18 @@ The standard cloud image (2,196,464 bytes, SHA256 `6f764e4af8e5f46cfbf1ae415f9be
 
 ## 2026-10-19 M09 firmware prerelease
 
-Published [M09 XiaoZhi 2.5.3 r1](https://github.com/FoloToy/MagicBox/releases/tag/m09-s3-hw210-xiaozhi-v2.5.3-r1) as a prerelease, pinned to `d8acaff3c6d299050b3f74043ceea633915649ce` on `demo/xiaozhi`. The application and M09 BSP trees match the previously device-tested `ed8d2b5` source. This freshly built binary was not flashed during release creation; inherited hardware evidence is not fresh binary acceptance.
+Historical packaging (subsequently superseded by MagicBox v0.1 and returned to draft): [M09 upstream-based 2.5.3 r1 source](https://github.com/FoloToy/MagicBox/tree/m09-s3-hw210-xiaozhi-v2.5.3-r1) was initially published as a prerelease, pinned to `d8acaff3c6d299050b3f74043ceea633915649ce` on `demo/xiaozhi`. The application and M09 BSP trees match the previously device-tested `ed8d2b5` source. This freshly built binary was not flashed during release creation; inherited hardware evidence is not fresh binary acceptance.
 
 PASS: clean-source standard cloud variant built with ESP-IDF v6.1 for ESP32-S3, 16 MB flash, M09 HW2.1.0. Application is 2,196,464 bytes; SHA256 `ab32f858130488ade9c48d3b1604990a3d87ffffaf3651eb3854c17635d72197`. esptool v5.6.0 verified the chip, application descriptor, image checksum and appended validation hash. Generated configuration selects the M09 production partition CSV, `https://magic.folotoy.cn/xiaozhi/ota/`, `FoloToy` AP prefix and disabled demo Wi-Fi. Known private inference keys were absent from the binary.
 
 PASS: repository checks and 8 tests; application host suite ran 126 tests successfully with 2 conditional skips in the SDK Python environment. An incomplete temporary component cache was preserved and regenerated through ESP-IDF before the successful build; no vendor component source was edited.
 
 PASS: four published assets (application BIN, bilingual ZIP, manifest and SHA256SUMS) downloaded back from GitHub. All outer/inner checksums and ZIP integrity verified; remote tag resolved to the pinned source commit. Only an application update is packaged: no device dumps, identities, saved network/account settings, factory image or full-flash installer. No flashing or automatic OTA rollout occurred. C5 and other S3 revisions are outside this release. See [English release guide](FIRMWARE_RELEASES.md) and [中文升级说明](FIRMWARE_RELEASES.zh_CN.md).
+
+## 2026-10-19 Independent MagicBox v0.1 release
+
+Published [MagicBox v0.1](https://github.com/FoloToy/MagicBox/releases/tag/v0.1), pinned to `0e9fd3715568d51ab56f38e1088740936505b80c`. Public BIN/ZIP names are `magicbox-m09-s3-hw210-v0.1.*`; the application descriptor version is `0.1.0`. XiaoZhi is identified as the currently compatible protocol, not the MagicBox product/version. Existing protocol endpoints, port branch/directory and upstream attribution remain intact.
+
+PASS: explicit M09 cloud variant built with ESP-IDF v6.1; 2,196,464-byte application SHA256 `68ea880307531d94adee944575d960f80ec84f6b508b3f6cfb8a4d5dd659e2a7`. esptool confirmed ESP32-S3/16 MB, version 0.1.0, valid checksum and validation hash. Repository checks and 8 tests passed; 126 port tests ran successfully with 2 conditional skips. All four GitHub attachments were downloaded back and their outer/inner SHA-256, ZIP integrity and manifest version verified.
+
+The prior package is retained as a draft, with no asset deletion. Functional application/BSP code is unchanged from prior physical acceptance; the application version marker changed. This exact new binary was not flashed or newly device-tested. No automatic OTA rollout or existing-device reset occurred. The upstream-derived 2.5.3 and new independent 0.1.0 series require an explicit migration policy before any future version-ordered OTA rollout.
