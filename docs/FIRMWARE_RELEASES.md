@@ -11,7 +11,7 @@ Match the complete hardware profile before choosing an image.
 |---|---|
 | Profile | `m09-s3-hw210` |
 | Hardware | MagicBox M09 · ESP32-S3 · PCB HW2.1.0 · 16 MB flash |
-| Source branch | `demo/xiaozhi` |
+| Source branch | `demo/magicbox` |
 | Build variant | `folotoy-magicbox-m09-s3-hw210` |
 | SDK | ESP-IDF 6.1 |
 | Server | `https://magic.folotoy.cn/xiaozhi/ota/` |

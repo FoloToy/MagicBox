@@ -11,7 +11,7 @@
 |---|---|
 | 硬件配置 | `m09-s3-hw210` |
 | 适配硬件 | MagicBox M09 · ESP32-S3 · PCB HW2.1.0 · 16 MB Flash |
-| 源码分支 | `demo/xiaozhi` |
+| 源码分支 | `demo/magicbox` |
 | 构建版本 | `folotoy-magicbox-m09-s3-hw210` |
 | SDK | ESP-IDF 6.1 |
 | 默认服务器 | `https://magic.folotoy.cn/xiaozhi/ota/` |

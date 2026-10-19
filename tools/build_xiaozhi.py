@@ -18,9 +18,9 @@ PROJECT = ROOT / "apps/xiaozhi"
 def main():
     parser = argparse.ArgumentParser(description="Explicit MagicBox XiaoZhi profile")
     parser.add_argument("--board", required=True)
-    parser.add_argument("--variant", default="folotoy-magicbox-m09-s3-hw210",
-                        choices=["folotoy-magicbox-m09-s3-hw210",
-                                 "folotoy-magicbox-m09-s3-hw210-local"])
+    board_config = json.loads((PROJECT / "main/boards/folotoy/magicbox/config.json").read_text())
+    variants = [entry["name"] for entry in board_config["builds"]]
+    parser.add_argument("--variant", default=variants[0], choices=variants)
     args = parser.parse_args()
     try:
         profile = select(args.board)
@@ -82,7 +82,7 @@ def main():
         (PROJECT / "build/magicbox-build.json").write_text(json.dumps({
             "profile": profile["id"], "target": profile["target"],
             "model": profile["model"], "hardware_revision": profile["hardware_revision"],
-            "variant": args.variant, "sha256": checksum,
+            "variant": args.variant, "board_type": board_config["type"], "sha256": checksum,
             "size": image.stat().st_size, "device_test": "not performed by build tool"
         }, indent=2) + "\n")
     return 0

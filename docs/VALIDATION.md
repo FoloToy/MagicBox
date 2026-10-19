@@ -53,7 +53,7 @@ The standard cloud image (2,196,464 bytes, SHA256 `6f764e4af8e5f46cfbf1ae415f9be
 
 ## 2026-10-19 M09 firmware prerelease
 
-Historical packaging (subsequently superseded by MagicBox v0.1 and returned to draft): [M09 upstream-based 2.5.3 r1 source](https://github.com/FoloToy/MagicBox/tree/m09-s3-hw210-xiaozhi-v2.5.3-r1) was initially published as a prerelease, pinned to `d8acaff3c6d299050b3f74043ceea633915649ce` on `demo/xiaozhi`. The application and M09 BSP trees match the previously device-tested `ed8d2b5` source. This freshly built binary was not flashed during release creation; inherited hardware evidence is not fresh binary acceptance.
+Historical packaging (subsequently superseded by MagicBox v0.1 and returned to draft): [M09 upstream-based 2.5.3 r1 source](https://github.com/FoloToy/MagicBox/tree/m09-s3-hw210-xiaozhi-v2.5.3-r1) was initially published as a prerelease, pinned to `d8acaff3c6d299050b3f74043ceea633915649ce` on `demo/magicbox`. The application and M09 BSP trees match the previously device-tested `ed8d2b5` source. This freshly built binary was not flashed during release creation; inherited hardware evidence is not fresh binary acceptance.
 
 PASS: clean-source standard cloud variant built with ESP-IDF v6.1 for ESP32-S3, 16 MB flash, M09 HW2.1.0. Application is 2,196,464 bytes; SHA256 `ab32f858130488ade9c48d3b1604990a3d87ffffaf3651eb3854c17635d72197`. esptool v5.6.0 verified the chip, application descriptor, image checksum and appended validation hash. Generated configuration selects the M09 production partition CSV, `https://magic.folotoy.cn/xiaozhi/ota/`, `FoloToy` AP prefix and disabled demo Wi-Fi. Known private inference keys were absent from the binary.
 
