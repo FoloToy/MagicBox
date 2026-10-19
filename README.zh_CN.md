@@ -14,12 +14,22 @@
 | `c5-reference-m301-hw120` | ESP32-C5 / 原配置 M301 / HW1.2.0 | ESP-IDF 5.5.3 | 具体产品型号待用户确认，保留参考标识 |
 
 - `main`：BSP、最小入口、独立硬件诊断示例。
-- `demo/xiaozhi` 分支：继承 main，加入兼容小智协议的 MagicBox 固件。目前 M09 移植有历史实机记录；不把 C5 BSP 编译通过标成 C5 小智已适配。
+- `demo/magicbox` 分支：继承 main，加入兼容小智协议的 MagicBox 固件。目前 M09 移植有历史实机记录；不把 C5 BSP 编译通过标成 C5 小智已适配。
 原 Arduino 实现请查看已归档的 [magicbox-arduino 仓库](https://github.com/FoloToy/magicbox-arduino)。本仓库保留原生 ESP-IDF 实现；历史实机记录不代表新 BSP 已完成实机验收。
+
+## 分支
+
+| 分支 | 用途 |
+|---|---|
+| `main` | BSP、最小入口和硬件诊断 |
+| [`demo/magicbox`](https://github.com/FoloToy/MagicBox/tree/demo/magicbox) | 连接 Magic Server 的 MagicBox 固件 |
+| [`demo/xiaozhi`](https://github.com/FoloToy/MagicBox/tree/demo/xiaozhi) | 保留固定上游小智功能，连接原小智服务 |
+
+[分支与服务说明](docs/BRANCHES.zh_CN.md)。
 
 ## 固件下载
 
-[MagicBox v0.1](https://github.com/FoloToy/MagicBox/releases/tag/v0.1) 使用独立的 MagicBox 版本体系，下载文件名按硬件与 MagicBox 版本命名。当前 M09 固件兼容小智协议。[升级说明](https://github.com/FoloToy/MagicBox/blob/demo/xiaozhi/docs/FIRMWARE_RELEASES.zh_CN.md)。
+[MagicBox v0.1](https://github.com/FoloToy/MagicBox/releases/tag/v0.1) 使用独立的 MagicBox 版本体系，下载文件名按硬件与 MagicBox 版本命名。当前 M09 固件兼容小智协议。[升级说明](https://github.com/FoloToy/MagicBox/blob/demo/magicbox/docs/FIRMWARE_RELEASES.zh_CN.md)。
 
 ```sh
 python3 tools/build.py --list

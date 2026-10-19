@@ -11,11 +11,21 @@ Multi-generation FoloToy MagicBox hardware BSPs. Select **model + chip + PCB rev
 | `m09-s3-hw210` | M09 / ESP32-S3 / HW2.1.0 | ESP-IDF 6.1 | Owner-confirmed model; original firmware was Arduino |
 | `c5-reference-m301-hw120` | ESP32-C5 / source M301 / HW1.2.0 | ESP-IDF 5.5.3 | Sales model mapping pending; reference hardware |
 
-`main` contains BSPs, minimal entry points and separate hardware diagnostics. The [`demo/xiaozhi`](https://github.com/FoloToy/MagicBox/tree/demo/xiaozhi) branch adds MagicBox firmware with XiaoZhi protocol compatibility. The current BSPs and MagicBox firmware use native ESP-IDF. M09's original Arduino implementation is available in the archived [magicbox-arduino repository](https://github.com/FoloToy/magicbox-arduino). C5 BSP availability does not imply a validated C5 XiaoZhi port.
+`main` contains BSPs, minimal entry points and separate hardware diagnostics. The [`demo/magicbox`](https://github.com/FoloToy/MagicBox/tree/demo/magicbox) branch adds MagicBox firmware with XiaoZhi protocol compatibility. The current BSPs and MagicBox firmware use native ESP-IDF. M09's original Arduino implementation is available in the archived [magicbox-arduino repository](https://github.com/FoloToy/magicbox-arduino). C5 BSP availability does not imply a validated C5 XiaoZhi port.
+
+## Branches
+
+| Branch | Purpose |
+|---|---|
+| `main` | BSPs, minimal entry points and hardware diagnostics |
+| [`demo/magicbox`](https://github.com/FoloToy/MagicBox/tree/demo/magicbox) | MagicBox firmware for Magic Server |
+| [`demo/xiaozhi`](https://github.com/FoloToy/MagicBox/tree/demo/xiaozhi) | Pinned upstream XiaoZhi functionality and original service |
+
+[Branch/service guide](docs/BRANCHES.md).
 
 ## Firmware downloads
 
-[MagicBox v0.1](https://github.com/FoloToy/MagicBox/releases/tag/v0.1) uses an independent MagicBox version scheme. Download filenames identify the hardware and MagicBox version. The current M09 firmware is compatible with the XiaoZhi protocol. [Update guide](https://github.com/FoloToy/MagicBox/blob/demo/xiaozhi/docs/FIRMWARE_RELEASES.md).
+[MagicBox v0.1](https://github.com/FoloToy/MagicBox/releases/tag/v0.1) uses an independent MagicBox version scheme. Download filenames identify the hardware and MagicBox version. The current M09 firmware is compatible with the XiaoZhi protocol. [Update guide](https://github.com/FoloToy/MagicBox/blob/demo/magicbox/docs/FIRMWARE_RELEASES.md).
 
 ```sh
 python3 tools/build.py --list
