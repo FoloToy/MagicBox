@@ -5,7 +5,7 @@
 从 [GitHub Releases](https://github.com/FoloToy/MagicBox/releases) 下载固件。
 选择时核对完整的型号、芯片和 PCB 版本。
 
-## M09 小智 2.5.3 · 打包版本 r1
+## MagicBox v0.1 · M09
 
 | 项目 | 配置 |
 |---|---|
@@ -18,7 +18,8 @@
 | 配网 | 热点 `FoloToy-XXXX`，浏览器打开 `http://192.168.4.1` |
 
 附件包括应用固件 `.bin`、ZIP 压缩包、中英文说明、源码与构建清单、SHA-256 校验文件。
-`r1` 是 GitHub 打包版本，固件内的应用版本仍为 `2.5.3`。
+对外发布版本为 `v0.1`，ESP-IDF 应用版本为 `0.1.0`，采用 MagicBox 自己的版本体系。
+当前固件兼容小智协议；协议名称表示兼容能力，不作为产品名或版本名。
 包内不包含已保存的 Wi-Fi、账号密钥、设备身份、Flash 备份或原厂固件。
 标准云端版本不自动填入开发测试用 Wi-Fi。
 
@@ -30,7 +31,7 @@
 只有上述条件全部匹配时，才可按以下方式更新已确认的 app0：
 
 ```sh
-python -m esptool --chip esp32s3 --port PORT write-flash 0x410000 magicbox-m09-s3-hw210-xiaozhi-2.5.3-r1.bin
+python -m esptool --chip esp32s3 --port PORT write-flash 0x410000 magicbox-m09-s3-hw210-v0.1.bin
 ```
 
 命令假定所用 esptool 支持连字符形式的子命令，且不会替你选择 OTA 启动槽。

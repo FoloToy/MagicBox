@@ -5,7 +5,7 @@ English · [简体中文](FIRMWARE_RELEASES.zh_CN.md)
 Download firmware from [GitHub Releases](https://github.com/FoloToy/MagicBox/releases).
 Match the complete hardware profile before choosing an image.
 
-## M09 XiaoZhi 2.5.3 · package r1
+## MagicBox v0.1 · M09
 
 | Item | Value |
 |---|---|
@@ -18,8 +18,10 @@ Match the complete hardware profile before choosing an image.
 | Provisioning | `FoloToy-XXXX`, then `http://192.168.4.1` |
 
 The release includes an application-only `.bin`, a ZIP containing that image,
-bilingual instructions, a source/build manifest and SHA-256 checksums. Package
-revision `r1` is distinct from the embedded application version `2.5.3`.
+bilingual instructions, a source/build manifest and SHA-256 checksums. The public release is `v0.1`; the ESP-IDF application descriptor uses
+`0.1.0`. MagicBox versions are independent of upstream firmware versions.
+This firmware currently supports the XiaoZhi protocol. Protocol names identify
+compatibility rather than the product or release name.
 No saved Wi-Fi, account credentials, device identity, flash dumps or factory
 images are included. The cloud variant does not seed the development Wi-Fi.
 
@@ -32,7 +34,7 @@ slot, image size and SHA-256. Privately back up application/settings/identity.
 Only after these checks, writing the application to the verified app0 slot is:
 
 ```sh
-python -m esptool --chip esp32s3 --port PORT write-flash 0x410000 magicbox-m09-s3-hw210-xiaozhi-2.5.3-r1.bin
+python -m esptool --chip esp32s3 --port PORT write-flash 0x410000 magicbox-m09-s3-hw210-v0.1.bin
 ```
 
 This command assumes the installed esptool uses the hyphenated subcommand syntax.

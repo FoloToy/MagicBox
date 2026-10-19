@@ -1,4 +1,4 @@
-> 当前为 `demo/xiaozhi` 分支，在 main 的 BSP 基础上加入 M09 小智移植。[小智构建与验证说明](docs/XIAOZHI.md)。
+> 当前为 `demo/xiaozhi` 分支，在 main 的 BSP 基础上加入兼容小智协议的 MagicBox 固件。[固件构建与验证说明](docs/XIAOZHI.md)。
 
 # MagicBox 多代硬件 BSP
 
@@ -20,6 +20,8 @@
 原 Arduino 实现请查看已归档的 [magicbox-arduino 仓库](https://github.com/FoloToy/magicbox-arduino)。本仓库保留原生 ESP-IDF 实现；历史实机记录不代表新 BSP 已完成实机验收。
 
 ## 固件下载
+
+MagicBox 独立版本从 **v0.1** 开始，固件内版本为 `0.1.0`。下载文件按型号、芯片、PCB 版本和 MagicBox 版本命名；小智表示当前兼容的协议。
 
 [GitHub Releases](https://github.com/FoloToy/MagicBox/releases) · [适配型号与升级说明](docs/FIRMWARE_RELEASES.zh_CN.md)
 
