@@ -1,59 +1,42 @@
-> 当前为 `demo/magicbox` 分支，在 main 的 BSP 基础上加入兼容小智协议的 MagicBox 固件。[固件构建与验证说明](docs/XIAOZHI.md)。
+# MagicBox M09 小智原服务移植
 
-# MagicBox 多代硬件 BSP
+简体中文 · [English](README.md)
 
-<p align="center">
-  <img src="docs/images/magicbox-overview.png" alt="MagicBox 套装、设备与黏土手作示例" width="960">
-</p>
+当前为 **`demo/xiaozhi`**：保留小智原有应用功能、连接原小智服务的 M09 硬件移植。
+使用上游固定提交 `6cb01531c2ae961eb3fd64c5e97f65d20a597f7e` 的 **2.5.3** 版本，
+保留 OTA 激活、WebSocket、MQTT/UDP、MCP 工具和会话模式。
 
-[English](README.md) · [架构与版本规则](docs/ARCHITECTURE.md) · [验证记录](docs/VALIDATION.md)
-
-按“型号 + 芯片 + PCB 版本”选择硬件。同为 S3 不代表引脚、电源或器件相同，不做自动猜板。
-
-| 配置 ID | 硬件 | SDK | 状态 |
-|---|---|---|---|
-| `m09-s3-hw210` | M09 / ESP32-S3 / HW2.1.0 | ESP-IDF 6.1 | 用户确认型号；原始固件使用 Arduino |
-| `c5-reference-m301-hw120` | ESP32-C5 / 原配置 M301 / HW1.2.0 | ESP-IDF 5.5.3 | 具体产品型号待用户确认，保留参考标识 |
-
-- `main`：BSP、最小入口、独立硬件诊断示例。
-- `demo/magicbox` 分支：继承 main，加入兼容小智协议的 MagicBox 固件。目前 M09 移植有历史实机记录；不把 C5 BSP 编译通过标成 C5 小智已适配。
-原 Arduino 实现请查看已归档的 [magicbox-arduino 仓库](https://github.com/FoloToy/magicbox-arduino)。本仓库保留原生 ESP-IDF 实现；历史实机记录不代表新 BSP 已完成实机验收。
-
-## 分支
-
-- `main`：BSP、最小入口和硬件诊断。
-- [`demo/magicbox`](https://github.com/FoloToy/MagicBox/tree/demo/magicbox)：连接 Magic Server 的 MagicBox 固件。
-- [`demo/xiaozhi`](https://github.com/FoloToy/MagicBox/tree/demo/xiaozhi)：保留小智上游功能，连接原小智服务的 M09 移植。
-
-[分支与服务说明](docs/BRANCHES.zh_CN.md)。
-
-## 固件下载
-
-MagicBox 独立版本从 **v0.1** 开始，固件内版本为 `0.1.0`。下载文件按型号、芯片、PCB 版本和 MagicBox 版本命名；小智表示当前兼容的协议。
-
-[GitHub Releases](https://github.com/FoloToy/MagicBox/releases) · [适配型号与升级说明](docs/FIRMWARE_RELEASES.zh_CN.md)
-
-## 网络配置
-
-M09 标准版本默认使用 `https://magic.folotoy.cn/xiaozhi/ota/`，没有已保存网络时直接开启 `FoloToy-XXXX` 配网热点。长按 Mode 三秒可重新配网。
-
-独立的 `-local` 本地开发版本仅在没有已保存网络时填入以下演示配置：
-
-| 配置项 | 默认值 |
+| 分支 | 用途 |
 |---|---|
-| SSID | `FOLOTOY_LAND` |
-| 密码 | `makeitanything` |
+| [`main`](https://github.com/FoloToy/MagicBox/tree/main) | 多代硬件 BSP、最小示例和硬件诊断 |
+| [`demo/magicbox`](https://github.com/FoloToy/MagicBox/tree/demo/magicbox) | 连接 Magic Server 的 MagicBox v0.1 产品固件 |
+| [`demo/xiaozhi`](https://github.com/FoloToy/MagicBox/tree/demo/xiaozhi) | 当前小智原服务移植 |
 
-[构建与使用说明](docs/XIAOZHI.md)。
+## 硬件与服务
+
+- 硬件：**M09 / ESP32-S3 / HW2.1.0**，配置 `m09-s3-hw210`。
+- 默认 OTA/激活服务：`https://api.tenclass.net/xiaozhi/ota/`。
+- 配网热点：`Xiaozhi-XXXX`，配置页面 `http://192.168.4.1`。
+- 激活后使用原 [xiaozhi.me 控制台](https://xiaozhi.me)管理。
+- 独立构建名称：`folotoy-magicbox-m09-s3-hw210-xiaozhi`。
+- 独立 OTA 机型：`magicbox-m09-s3-hw210-xiaozhi`。
+
+M09 的音频、按键、外接 Mode、旋钮和运动适配继续保留。
+上游可选功能仍保留在源码中；M09 没有屏幕、摄像头，本构建不启用唤醒词或 AEC。
+C5 的 BSP 单独保留，不代表已完成 C5 应用移植。
+
+## 构建
 
 ```sh
-python3 tools/build.py --list
 source /path/to/esp-idf-v6.1/export.sh
-python tools/build.py --board m09-s3-hw210 --app baseline
-python tools/build.py --board m09-s3-hw210 --app hardware-demo
-# C5 需另启 ESP-IDF 5.5.3 环境后构建：
-python tools/build.py --board c5-reference-m301-hw120 --app baseline
-python tools/build.py --board c5-reference-m301-hw120 --app hardware-demo
+./tools/build_xiaozhi.sh --board m09-s3-hw210
 ```
 
-构建不会刷机；产物按配置 ID 分目录，保留 SHA256、SDK 和芯片信息。未知版本、缺少硬件配置、芯片不匹配会被拒绝。后续增加另一块 S3 板时，新建配置和引脚头文件，不能覆盖 M09。旧量产设备烧录前必须核对分区并保留原厂应用、身份和配置。
+本版本不注入 Magic Server 地址或演示 Wi-Fi。已保存的 `wifi/ota_url` 会覆盖编译默认地址，
+切换服务前应检查该项。构建不会刷机，也不会迁移两套服务的账号与设备绑定。
+
+[服务与构建说明](docs/XIAOZHI.zh_CN.md) · [分支说明](docs/BRANCHES.zh_CN.md) ·
+[验证记录](docs/VALIDATION.md) · [上游文档](apps/xiaozhi/README_zh.md)
+
+保留 MIT 许可证及上游署名。本次保留固定上游版本，不宣称升级到最新版本，
+原服务的激活和对话仍需新版本真机验收。

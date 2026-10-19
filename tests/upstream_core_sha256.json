@@ -1,0 +1,18 @@
+{
+  "upstream_commit": "6cb01531c2ae961eb3fd64c5e97f65d20a597f7e",
+  "sha256": {
+    "main/application.cc": "4e752a5e719f613ed94e0fcfcbb8f71fc77193e213f6f92ef1926735fcb4d06a",
+    "main/application.h": "71bfebd37b279b7f07832b80620cd15829e996b2942555ec09e23599464879cc",
+    "main/ota.cc": "d88e45c9678085e8e23c113f0fced2c43e64c4a3d927f507a1f8204319549eca",
+    "main/ota.h": "56c574413026dc63c42dc224025d11a29c544a07ce30ba6f78ff5fd8eb2de985",
+    "main/mcp_server.cc": "c9694b0cc1a408ca0594f661c0810d06a5a77848f54d87bdd635d43fb99eabfc",
+    "main/mcp_server.h": "527eb302f2889145af501ef8d4300bb380ce19cca5779043d7783fc2b651a10b",
+    "main/protocols/protocol.cc": "bab9bb17a3a7ecf05811b4ab4c4e5c0b851356370ee5e119de72d7fd1c7cc50b",
+    "main/protocols/protocol.h": "b12be6bebaac46a6c724205e33836dd3484ce97d066316dea8720ff6eff179a0",
+    "main/protocols/mqtt_protocol.cc": "c35e6cae95b1eeea06a388d281619f50202980223540b5d0d5a8adaf67079229",
+    "main/protocols/mqtt_protocol.h": "a9bd4ed3ed3925ca0b11067cf5307b7aa12b9d367a699058bd2f7a57b6a080c6",
+    "main/protocols/websocket_protocol.cc": "5fadcb06cd7d813a33a1c0207e9bef595c73e1165132ab6c8e9230cbb7bc06f5",
+    "main/protocols/websocket_protocol.h": "a2644ed386e7eb6b4a761829e7def39f9963f47b71fec26723419c162157c06e",
+    "main/boards/common/wifi_board.cc": "72e271e4065b92d069394556c4cb8a95879ac81329f11a6ba2670388f820341c"
+  }
+}

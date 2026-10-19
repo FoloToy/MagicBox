@@ -1,10 +1,10 @@
 {
     "manufacturer": "folotoy",
-    "type": "magicbox-m09-s3-hw210",
+    "type": "magicbox-m09-s3-hw210-xiaozhi",
     "target": "esp32s3",
     "builds": [
         {
-            "name": "folotoy-magicbox-m09-s3-hw210",
+            "name": "folotoy-magicbox-m09-s3-hw210-xiaozhi",
             "sdkconfig_append": [
                 "CONFIG_BOARD_TYPE_FOLOTOY_MAGICBOX_M09_S3_HW210=y",
                 "CONFIG_PARTITION_TABLE_CUSTOM_FILENAME=\"partitions/folotoy-magicbox.csv\"",
@@ -21,32 +21,7 @@
                 "CONFIG_PM_ENABLE=y",
                 "CONFIG_FREERTOS_USE_TICKLESS_IDLE=y",
                 "CONFIG_PM_LIGHT_SLEEP_CALLBACKS=y",
-                "CONFIG_OTA_URL=\"https://magic.folotoy.cn/xiaozhi/ota/\"",
-                "CONFIG_FOLOTOY_MAGICBOX_DEMO_WIFI=n",
-                "CONFIG_WIFI_AP_SSID_PREFIX=\"FoloToy\""
-            ]
-        },
-        {
-            "name": "folotoy-magicbox-m09-s3-hw210-local",
-            "sdkconfig_append": [
-                "CONFIG_BOARD_TYPE_FOLOTOY_MAGICBOX_M09_S3_HW210=y",
-                "CONFIG_PARTITION_TABLE_CUSTOM_FILENAME=\"partitions/folotoy-magicbox.csv\"",
-                "CONFIG_ESP_CONSOLE_UART_DEFAULT=y",
-                "CONFIG_ESP_CONSOLE_UART_BAUDRATE=115200",
-                "CONFIG_SPIRAM=y",
-                "CONFIG_SPIRAM_MODE_OCT=y",
-                "CONFIG_SPIRAM_SPEED_80M=y",
-                "CONFIG_FLASH_NONE_ASSETS=y",
-                "CONFIG_WAKE_WORD_DISABLED=y",
-                "CONFIG_USE_AUDIO_PROCESSOR=n",
-                "CONFIG_USE_DEVICE_AEC=n",
-                "CONFIG_USE_SERVER_AEC=n",
-                "CONFIG_PM_ENABLE=y",
-                "CONFIG_FREERTOS_USE_TICKLESS_IDLE=y",
-                "CONFIG_PM_LIGHT_SLEEP_CALLBACKS=y",
-                "CONFIG_OTA_URL=\"http://192.168.1.172:8988/xiaozhi/ota/\"",
-                "CONFIG_FOLOTOY_MAGICBOX_DEMO_WIFI=y",
-                "CONFIG_WIFI_AP_SSID_PREFIX=\"FoloToy\""
+                "CONFIG_OTA_URL=\"https://api.tenclass.net/xiaozhi/ota/\""
             ]
         }
     ]

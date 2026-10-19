@@ -1,4 +1,4 @@
-name: M09 MagicBox
+name: M09 upstream-service XiaoZhi
 on: [push, pull_request, workflow_dispatch]
 permissions:
   contents: read
@@ -24,7 +24,7 @@ jobs:
           ./tools/build_xiaozhi.sh --board m09-s3-hw210
       - uses: actions/upload-artifact@v4
         with:
-          name: magicbox-m09-s3-hw210
+          name: xiaozhi-original-m09-s3-hw210
           path: |
             apps/xiaozhi/build/xiaozhi.bin
             apps/xiaozhi/build/xiaozhi.sha256

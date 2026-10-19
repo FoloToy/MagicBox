@@ -1,58 +1,45 @@
-> This is the `demo/magicbox` branch. It contains the BSPs from main plus MagicBox firmware compatible with the XiaoZhi protocol. [Firmware build/validation guide](docs/XIAOZHI.md).
+# XiaoZhi for MagicBox M09
 
-# MagicBox
+English · [简体中文](README.zh_CN.md)
 
-<p align="center">
-  <img src="docs/images/magicbox-overview.png" alt="MagicBox kit, devices and hands-on clay creation" width="960">
-</p>
+This is **`demo/xiaozhi`**, the M09 hardware port of the original XiaoZhi
+application and service. It retains upstream application version **2.5.3** from
+commit `6cb01531c2ae961eb3fd64c5e97f65d20a597f7e`, including OTA activation,
+WebSocket and MQTT/UDP transports, MCP tools and conversation modes.
 
-Multi-generation FoloToy MagicBox hardware BSPs. Select **model + chip + PCB revision**, not chip alone. [中文说明](README.zh_CN.md) · [Architecture](docs/ARCHITECTURE.md) · [Validation](docs/VALIDATION.md)
-
-| Profile | Hardware | SDK | Status |
-|---|---|---|---|
-| `m09-s3-hw210` | M09 / ESP32-S3 / HW2.1.0 | ESP-IDF 6.1 | Owner-confirmed model; original firmware was Arduino |
-| `c5-reference-m301-hw120` | ESP32-C5 / source M301 / HW1.2.0 | ESP-IDF 5.5.3 | Sales model mapping pending; reference hardware |
-
-`main` contains BSPs, minimal entry points and separate hardware diagnostics. The [`demo/magicbox`](https://github.com/FoloToy/MagicBox/tree/demo/magicbox) branch adds MagicBox firmware with XiaoZhi protocol compatibility. The current BSPs and MagicBox firmware use native ESP-IDF. M09's original Arduino implementation is available in the archived [magicbox-arduino repository](https://github.com/FoloToy/magicbox-arduino). C5 BSP availability does not imply a validated C5 XiaoZhi port.
-
-## Branches
-
-- `main`: BSPs and minimal hardware examples.
-- [`demo/magicbox`](https://github.com/FoloToy/MagicBox/tree/demo/magicbox): MagicBox firmware for Magic Server.
-- [`demo/xiaozhi`](https://github.com/FoloToy/MagicBox/tree/demo/xiaozhi): upstream XiaoZhi features and original service for M09.
-
-[Branch and service guide](docs/BRANCHES.md).
-
-## Firmware downloads
-
-MagicBox releases start at **v0.1** (embedded version `0.1.0`), independently of upstream version numbers. Product filenames identify the model, chip, PCB revision and MagicBox version. XiaoZhi denotes the currently supported protocol.
-
-[GitHub Releases](https://github.com/FoloToy/MagicBox/releases) · [Supported hardware and update instructions](docs/FIRMWARE_RELEASES.md)
-
-## Network setup
-
-The standard M09 variant connects to Magic Server at `https://magic.folotoy.cn/xiaozhi/ota/` and starts a `FoloToy-XXXX` Wi-Fi provisioning hotspot when no network is saved. Hold Mode for three seconds to configure another network.
-
-The separate `-local` development variant seeds these demo credentials only when no network is saved:
-
-| Setting | Value |
+| Branch | Purpose |
 |---|---|
-| SSID | `FOLOTOY_LAND` |
-| Password | `makeitanything` |
+| [`main`](https://github.com/FoloToy/MagicBox/tree/main) | Multi-generation BSPs and minimal hardware examples |
+| [`demo/magicbox`](https://github.com/FoloToy/MagicBox/tree/demo/magicbox) | MagicBox v0.1 product firmware for Magic Server |
+| [`demo/xiaozhi`](https://github.com/FoloToy/MagicBox/tree/demo/xiaozhi) | This original-service M09 port |
 
-[Build and usage details](docs/XIAOZHI.md).
+## Hardware and service
+
+- Hardware profile: **M09 / ESP32-S3 / HW2.1.0**, `m09-s3-hw210`.
+- Default OTA/activation service: `https://api.tenclass.net/xiaozhi/ota/`.
+- Provisioning hotspot: `Xiaozhi-XXXX`; open `http://192.168.4.1`.
+- Manage the activated device in the original [xiaozhi.me console](https://xiaozhi.me).
+- Independent build/OTA identity: `folotoy-magicbox-m09-s3-hw210-xiaozhi` / `magicbox-m09-s3-hw210-xiaozhi`.
+
+M09 audio, buttons, external Mode button, volume knob and motion adaptations
+are retained. Optional upstream features remain in the source, but M09 has no
+screen/camera, and this build does not enable wake-word detection or AEC. C5's
+BSP remains available separately; a C5 application port is not claimed.
+
+## Build
 
 ```sh
-python3 tools/build.py --list
-# Activate the SDK required by the selected profile, then:
 source /path/to/esp-idf-v6.1/export.sh
-python tools/build.py --board m09-s3-hw210 --app baseline
-python tools/build.py --board m09-s3-hw210 --app hardware-demo
-# C5 uses its own ESP-IDF 5.5.3 environment:
-python tools/build.py --board c5-reference-m301-hw120 --app baseline
-python tools/build.py --board c5-reference-m301-hw120 --app hardware-demo
+./tools/build_xiaozhi.sh --board m09-s3-hw210
 ```
 
-Builds stage into an owned whitespace-free cache and export profile-labelled artifacts under `build/<profile>/<app>`. Build tools never flash. Development partition layouts must not be applied to production units without checking identity/factory preservation. A new S3 PCB needs a new profile and independent validation.
+No Magic Server endpoint or demo Wi-Fi is seeded by this variant. Existing
+saved `wifi/ota_url` overrides the build default: inspect it before moving a
+device between services. Building does not flash or migrate bindings/accounts.
 
-M09: direct digital I2S microphone/speaker, RGB, Mode/Voice, external Mode, knob, LIS3DH. C5 reference: ES8311, AXP2101, BM8563 RTC, GX8002, RGB, buttons and knob. These devices/pins/power sequences are not interchangeable. See profile pin headers and upstream provenance in the validation document.
+[Service/build guide](docs/XIAOZHI.md) · [Branch guide](docs/BRANCHES.md) ·
+[Validation](docs/VALIDATION.md) · [Upstream documentation](apps/xiaozhi/README.md)
+
+The MIT license and upstream attribution remain intact. This branch retains the
+pinned source; it does not claim the latest upstream release or fresh physical
+acceptance on the original service.
