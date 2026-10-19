@@ -2,7 +2,7 @@
 #pragma once
 #include "driver/gpio.h"
 #include "driver/i2c_types.h"
-#include "driver/i2s_types.h"
+#include "esp_adc/adc_oneshot.h"
 #define BSP_I2C_PORT I2C_NUM_0
 #define BSP_I2C_SDA GPIO_NUM_1
 #define BSP_I2C_SCL GPIO_NUM_0
@@ -14,6 +14,8 @@
 #define BSP_PMU_IRQ GPIO_NUM_10
 #define BSP_RTC_IRQ GPIO_NUM_8
 #define BSP_GX8002_IRQ GPIO_NUM_7
+// Wired in the cited source; no C5 motion driver or wake capability is claimed.
+#define BSP_IMU_IRQ GPIO_NUM_9
 #define BSP_LED_DATA GPIO_NUM_27
 #define BSP_BUTTON_WIFI_GPIO GPIO_NUM_3
 #define BSP_BUTTON_VOICE_GPIO GPIO_NUM_2
@@ -21,7 +23,7 @@
 #define BSP_KNOB_ADC_UNIT ADC_UNIT_1
 #define BSP_KNOB_ADC_CHANNEL ADC_CHANNEL_5
 #define BSP_KNOB_RAW_MAX 4095
-#define BSP_I2S_PORT I2S_NUM_0
+#define BSP_I2S_PORT 0
 #define BSP_I2S_MCLK GPIO_NUM_5
 #define BSP_I2S_BCLK GPIO_NUM_25
 #define BSP_I2S_WS GPIO_NUM_23

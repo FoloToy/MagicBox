@@ -30,7 +30,7 @@
       "hardware_revision": "1.2.0",
       "target": "esp32c5",
       "original_framework": "esp-idf",
-      "idf_series": "5.5.3",
+      "idf_series": "6.1",
       "project": "boards/c5-reference-m301-hw120/esp-idf",
       "pins": "boards/c5-reference-m301-hw120/esp-idf/components/bsp/include/bsp_pins.h",
       "model_mapping": "pending owner confirmation; reference only",
@@ -44,7 +44,10 @@
         "gx8002"
       ],
       "xiaozhi": null,
-      "validation": "Source configuration and compiler only; physical unit not tested in this task."
+      "validation": "Pin and partition layout match the cited C5 source. Connected silicon/flash/PSRAM identified read-only; PCB/model and peripheral acceptance pending.",
+      "source_board": "magicbox_rtc_v1_5G",
+      "source_repository": "https://github.com/FoloToy/folotoy-firmware-idf",
+      "source_commit": "8c013c923b59f1123e762880100d62ccf7005907"
     }
   ]
 }
