@@ -19,7 +19,7 @@ jobs:
           - board: m09-s3-hw210
             sdk: release-v6.1
           - board: c5-reference-m301-hw120
-            sdk: v5.5.3
+            sdk: release-v6.1
     container:
       image: espressif/idf:${{ matrix.sdk }}
     steps:

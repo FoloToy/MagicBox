@@ -24,7 +24,7 @@ def main():
     if not re.search(r'v'+re.escape(profile['idf_series'])+r'(?:[.\s-]|$)',version):
         parser.error(profile['id']+' requires ESP-IDF '+profile['idf_series']+'; found '+version.strip())
     key=hashlib.sha256(str(ROOT).encode()).hexdigest()[:12]
-    cache=Path(tempfile.gettempdir())/('magicbox-bsp-'+key)/profile['id']
+    cache=Path(tempfile.gettempdir())/('magicbox-bsp-'+key)/profile['id']/('idf-'+profile['idf_series'])
     owner=cache/'.source.json'
     if cache.exists() and (not owner.exists() or json.loads(owner.read_text())!={'source':str(ROOT)}):
         parser.error('Refusing unowned build cache '+str(cache))
