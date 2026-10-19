@@ -15,6 +15,10 @@ Multi-generation FoloToy MagicBox hardware BSPs. Select **model + chip + PCB rev
 
 `main` contains BSPs, minimal entry points and separate hardware diagnostics. The [`demo/xiaozhi`](https://github.com/FoloToy/MagicBox/tree/demo/xiaozhi) branch adds the XiaoZhi application. The current BSPs and XiaoZhi firmware use native ESP-IDF. M09's original Arduino implementation is available in the archived [magicbox-arduino repository](https://github.com/FoloToy/magicbox-arduino). C5 BSP availability does not imply a validated C5 XiaoZhi port.
 
+## Firmware downloads
+
+[GitHub Releases](https://github.com/FoloToy/MagicBox/releases) · [Supported hardware and update instructions](docs/FIRMWARE_RELEASES.md)
+
 ## Network setup
 
 The standard M09 variant connects to Magic Server at `https://magic.folotoy.cn/xiaozhi/ota/` and starts a `FoloToy-XXXX` Wi-Fi provisioning hotspot when no network is saved. Hold Mode for three seconds to configure another network.

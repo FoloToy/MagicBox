@@ -19,6 +19,10 @@
 - `demo/xiaozhi` 分支：继承 main，加入小智应用。目前 M09 移植有历史实机记录；不把 C5 BSP 编译通过标成 C5 小智已适配。
 原 Arduino 实现请查看已归档的 [magicbox-arduino 仓库](https://github.com/FoloToy/magicbox-arduino)。本仓库保留原生 ESP-IDF 实现；历史实机记录不代表新 BSP 已完成实机验收。
 
+## 固件下载
+
+[GitHub Releases](https://github.com/FoloToy/MagicBox/releases) · [适配型号与升级说明](docs/FIRMWARE_RELEASES.zh_CN.md)
+
 ## 网络配置
 
 M09 标准版本默认使用 `https://magic.folotoy.cn/xiaozhi/ota/`，没有已保存网络时直接开启 `FoloToy-XXXX` 配网热点。长按 Mode 三秒可重新配网。
