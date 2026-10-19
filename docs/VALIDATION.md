@@ -79,19 +79,17 @@ PASS: ten original-service repository tests; 126 application host tests with two
 
 No flashing occurred. Original-service activation/binding/conversation, original-service OTA catalog support for the independent board ID, and physical hardware acceptance of the new binary remain unverified. Saved `wifi/ota_url` may override a new default and must be handled explicitly when moving an existing device between services. No transport/application/MCP core implementation was replaced.
 
-## 2026-10-20 C5 source reconciliation and ESP-IDF 6.1 migration
+## 2026-10-20 M301 C5 source profile
 
-The cited folotoy-firmware-idf commit `8c013c923b59f1123e762880100d62ccf7005907` (`magicbox_rtc_v1_5G` family) matches the existing C5 reference GPIO map and PMU flags. Reused `c5-reference-m301-hw120`; no model/PCB identity was inferred from the chip. Corrected GX8002 power rails from generic ALDO1/ALDO3 aliases to source-specific ALDO4 3.3 V / BLDO1 1.0 V with ordered 10 ms sequencing. Added provenance, the source IMU interrupt definition and bilingual board notes. No accelerometer driver or motion wake is claimed.
+Owner confirms the connected ESP32-C5 device is **M301**. Added independent profile `m301-c5-rtc-v1-5g`, based on `magicbox_rtc_v1_5G` in folotoy-firmware-idf commit `8c013c923b59f1123e762880100d62ccf7005907`. The physical PCB revision remains null/pending; HW1.2.0 is not inferred. GPIOs, ES8311 clock/data directions, PMU flags and GX8002 ALDO4/BLDO1 rails are source-derived. The older `c5-reference-m301-hw120` retains its original implementation and SDK 5.5.3, including its different ALDO1/ALDO3 driver aliases. Matching GPIOs do not establish interchangeable power wiring.
 
-Migrated C5 BSP dependencies to IDF 6.1, button 4.2.1 and esp_codec_dev 1.6.2. The pinned public FoloToy driver remains unmodified; its explicit I2C/SPI/LEDC dependencies and zero-initialized aggregate warning compatibility are supplied by BSP CMake. Build caches now separate SDK series.
+The new BSP uses IDF 6.1, button 4.2.1 and esp_codec_dev 1.6.2. The pinned public FoloToy driver remains unmodified; its explicit I2C/SPI/LEDC dependencies and aggregate warning compatibility are supplied by BSP CMake. Build caches separate SDK series. No accelerometer driver or motion wake is claimed.
 
-PASS: repository boundary check, five host tests and the actual C5 button adapter host test. ESP-IDF v6.1 builds:
+PASS: repository boundary checks, six profile/staging host tests and actual button adapter failure/cleanup tests. New profile ESP-IDF v6.1 builds:
 
 | Application | Bytes | SHA256 |
 |---|---|---|
-| baseline | 255072 | `976a02baf2b8a3c7ea15cfcc1e3d701d6234efd2c7fe14701199ae7ea4102724` |
-| hardware-demo | 357328 | `a695b98b34ceb9b56d2d812a946b9b9e54d4278531c97a4f322bd7a3d9a20c4a` |
+| baseline | 255072 | `856185d3b3b427ce53d54f5abee143e642d372e055cb1e61413fabf8f12a0675` |
+| hardware-demo | 357328 | `33f733b0e0a88d1b8ea95203d61d291dddae5de7448919b67ff06c31a2d8766a` |
 
-Read-only ROM identification found ESP32-C5NR4 rev1.0, 16 MB Flash, 4 MB embedded PSRAM. Read-only partition-table inspection matched the cited source (factory 0x210000, app0 0x610000, app1 0xA10000, product NVS 0xF20000). No flash/settings/identity write occurred. PCB/model mapping, audio, buttons, knob, RTC, GX8002 and power behavior require physical acceptance of a separately authorized image. [C5 board notes](../boards/c5-reference-m301-hw120/README.md).
-
-Owner follow-up confirms the connected C5 unit is **M301**. Registry model mapping is now confirmed; physical HW1.2.0/PCB and peripheral acceptance remain pending.
+Read-only ROM identification: ESP32-C5NR4 rev1.0, 16 MB Flash, 4 MB embedded PSRAM. Read-only partition table matches the cited source (factory 0x210000, app0 0x610000, app1 0xA10000, product NVS 0xF20000). No flash/settings/identity write occurred. PCB revision, peripheral/audio/RTC/GX8002/power behavior need separate physical acceptance. [M301 board notes](../boards/m301-c5-rtc-v1-5g/README.md).
