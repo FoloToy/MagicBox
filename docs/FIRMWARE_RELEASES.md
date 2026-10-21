@@ -5,6 +5,31 @@ English · [简体中文](FIRMWARE_RELEASES.zh_CN.md)
 Download firmware from [GitHub Releases](https://github.com/FoloToy/MagicBox/releases).
 Match the complete hardware profile before choosing an image.
 
+## Installation and update packages
+
+Both released models now provide two formats. Each bundle contains both BINs,
+English/Chinese instructions, a manifest and SHA-256 checksums.
+
+| Model | Complete installer, write at `0x0` | Existing application update |
+| --- | --- | --- |
+| M09 / S3 HW2.1.0 | [Full BIN](https://github.com/FoloToy/MagicBox/releases/download/v0.1/magicbox-m09-s3-hw210-v0.1-full.bin) · [Bundle ZIP](https://github.com/FoloToy/MagicBox/releases/download/v0.1/magicbox-m09-s3-hw210-v0.1-bundle.zip) | Existing BIN unchanged; verified app0 `0x410000` |
+| M301 / C5 rtc-v1-5g | [Full BIN](https://github.com/FoloToy/MagicBox/releases/download/v0.1-m301/magicbox-m301-c5-rtc-v1-5g-v0.1-full.bin) · [Bundle ZIP](https://github.com/FoloToy/MagicBox/releases/download/v0.1-m301/magicbox-m301-c5-rtc-v1-5g-v0.1-bundle.zip) | Existing BIN unchanged; verified app0 `0x610000` |
+
+Full installers include the matching generated ESP-IDF 6.1 bootloader and
+production partition table, erased OTA metadata and the unchanged released
+application in the factory slot. Initial boot uses factory (`0x10000` on M09,
+`0x210000` on M301). They replace the original factory application and reset
+local settings in their written range. No full-chip erase is needed; product
+identity partitions lie beyond the image and are not included. eFuses and
+server-side device bindings remain unchanged. These are not original factory
+recovery images. Use only with the exact profile, 16 MB flash and disabled
+Secure Boot/Flash Encryption.
+
+Application-only updates retain their original bytes and requirements below.
+The `*-full-manifest.json` separately records component offsets, hashes and the
+written range. Segment/padding, partition-table and archive checks passed; full
+installers have not received new blank-device hardware testing.
+
 ## MagicBox v0.1 · M09
 
 | Item | Value |

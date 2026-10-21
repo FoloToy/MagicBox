@@ -5,6 +5,19 @@
 从 [GitHub Releases](https://github.com/FoloToy/MagicBox/releases) 下载固件。
 选择时核对完整的型号、芯片和 PCB 版本。
 
+## 完整安装与应用升级
+
+两个型号均提供两种格式。每个组合包包含两份 BIN、中英文说明、清单与 SHA-256 校验文件。
+
+| 型号 | 完整安装：从 `0x0` 烧录 | 原有应用升级 |
+| --- | --- | --- |
+| M09 / S3 HW2.1.0 | [完整 BIN](https://github.com/FoloToy/MagicBox/releases/download/v0.1/magicbox-m09-s3-hw210-v0.1-full.bin) · [组合 ZIP](https://github.com/FoloToy/MagicBox/releases/download/v0.1/magicbox-m09-s3-hw210-v0.1-bundle.zip) | 原 BIN 字节不变；此前已验证 app0 为 `0x410000` |
+| M301 / C5 rtc-v1-5g | [完整 BIN](https://github.com/FoloToy/MagicBox/releases/download/v0.1-m301/magicbox-m301-c5-rtc-v1-5g-v0.1-full.bin) · [组合 ZIP](https://github.com/FoloToy/MagicBox/releases/download/v0.1-m301/magicbox-m301-c5-rtc-v1-5g-v0.1-bundle.zip) | 原 BIN 字节不变；此前已验证 app0 为 `0x610000` |
+
+完整包包含匹配的 ESP-IDF 6.1 构建 bootloader、量产分区表、初始化 OTA 数据，以及放入 factory 槽的原发布应用。首次从 factory 启动：M09 为 `0x10000`，M301 为 `0x210000`。完整包会替换原厂应用，清除写入范围内的本机配置；无需全片擦除。产品身份分区在镜像范围外，包内不包含设备身份。eFuse 与云端已有绑定不会改变。这是安装固件，不是原厂恢复镜像。仅适用于明确匹配的型号、16 MB Flash、未启用 Secure Boot/Flash Encryption 的设备。
+
+应用升级版保留原有文件与下述要求。`*-full-manifest.json` 单独记录合并部件、地址、校验和与写入范围。已完成合并位置/填充、分区表及压缩包检查；完整包尚未进行新的空白设备真机验收。
+
 ## MagicBox v0.1 · M09
 
 | 项目 | 配置 |
