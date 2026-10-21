@@ -5,6 +5,35 @@ English · [简体中文](FIRMWARE_RELEASES.zh_CN.md)
 Download firmware from [GitHub Releases](https://github.com/FoloToy/MagicBox/releases).
 Match the complete hardware profile before choosing an image.
 
+## Test Wi-Fi installers
+
+For setup-free connection to the test network, use the separate complete
+installers below. Both write at **`0x0`** and connect to `FOLOTOY_LAND`
+(password `makeitanything`), using Magic Server. The network must be available;
+connection failure falls back to provisioning after approximately 60 seconds.
+Device activation/cloud binding remains a separate step.
+
+| Model | Test Wi-Fi installer bundle |
+| --- | --- |
+| M09 / S3 HW2.1.0 | [Download ZIP](https://github.com/FoloToy/MagicBox/releases/download/v0.1/magicbox-m09-s3-hw210-v0.1-testwifi.zip) |
+| M301 / C5 rtc-v1-5g | [Download ZIP](https://github.com/FoloToy/MagicBox/releases/download/v0.1-m301/magicbox-m301-c5-rtc-v1-5g-v0.1-testwifi.zip) |
+
+These packages preset only the Wi-Fi NVS region of the verified full image;
+application, bootloader and all other bytes remain unchanged. They reset local
+settings and replace the original factory application like the standard full
+installer. No product identity or existing cloud binding is included or reset.
+An application-only update cannot install this preset. Later manual Wi-Fi
+changes are retained; clearing saved networks requires provisioning or
+reinstalling this test package. Standard images below still have no seeded Wi-Fi.
+
+To reproduce, use `tools/package_test_wifi.py --board PROFILE
+--source-manifest PATH --wifi-file PRIVATE_JSON --idf-path IDF_PATH --output DIR`
+with the matching verified complete-installer manifest. The private JSON holds
+`ssid` and `password`; the tool uses the SDK NVS generator/parser and checks that
+no byte outside NVS changes. Keep local configuration outside Git. Only use a
+network intended for the recipients of the generated test package. Offline
+checks passed; no new physical Wi-Fi test has been performed.
+
 ## Installation and update packages
 
 Both released models now provide two formats. Each bundle contains both BINs,

@@ -5,6 +5,19 @@
 从 [GitHub Releases](https://github.com/FoloToy/MagicBox/releases) 下载固件。
 选择时核对完整的型号、芯片和 PCB 版本。
 
+## 预设测试 Wi-Fi 的完整固件
+
+无需手机配网、希望开机直接连接测试网络时，使用以下独立测试包。两款均从 **`0x0`** 烧录，预设 SSID **`FOLOTOY_LAND`**、密码 **`makeitanything`**，默认使用 Magic Server。现场需有该网络；约 60 秒连接失败后会进入配网。设备激活/云端绑定仍是独立步骤。
+
+| 型号 | 测试 Wi-Fi 完整固件组合包 |
+| --- | --- |
+| M09 / S3 HW2.1.0 | [下载 ZIP](https://github.com/FoloToy/MagicBox/releases/download/v0.1/magicbox-m09-s3-hw210-v0.1-testwifi.zip) |
+| M301 / C5 rtc-v1-5g | [下载 ZIP](https://github.com/FoloToy/MagicBox/releases/download/v0.1-m301/magicbox-m301-c5-rtc-v1-5g-v0.1-testwifi.zip) |
+
+测试包仅在已验证完整固件的 Wi-Fi NVS 区预置配置，应用、bootloader 与其余字节完全不变。同标准完整包一样，会重置本机配置并替换原厂应用；不包含或重置产品身份、云端已有绑定。仅刷应用无法获得此预设。后续手动改网会保存新配置；清除网络配置后需重新配网或重新刷入测试包。下面的标准固件继续保持无预设 Wi-Fi。
+
+可用 `tools/package_test_wifi.py` 从对应型号的完整固件清单复现打包，私有 JSON 提供 `ssid` 和 `password`，本地配置不提交 Git。工具使用 SDK NVS 生成器/解析器并确认 NVS 以外字节不变。只使用面向测试包接收者的测试网络。已通过离线校验，本次尚未做新的无线连接真机测试。
+
 ## 完整安装与应用升级
 
 两个型号均提供两种格式。每个组合包包含两份 BIN、中英文说明、清单与 SHA-256 校验文件。

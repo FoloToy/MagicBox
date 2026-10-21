@@ -182,3 +182,30 @@ verification, not newly compiled firmware or new physical acceptance. Full
 installation, first factory boot, blank-device provisioning and activation
 remain untested for these complete installers; application device evidence
 retains the earlier limitations. No connected device is flashed or erased.
+
+
+## 2026-10-21 Test-network full installers
+
+Created distinct `*-testwifi-full.bin` images for both supported product profiles.
+No application rebuild or hardware flash. The existing Wi-Fi reader uses the
+`wifi` NVS namespace and `ssid`/`password` string keys, with optional `channel`
+uint8. The standard Wi-Fi board starts station mode when this list is populated
+and retains its 60-second fallback to provisioning. The official ESP-IDF 6.1
+NVS generator creates a fresh 0x4000-byte partition containing only this test
+network; SDK JSON readback and NVS integrity checks pass. No device-saved
+configuration, identity, tokens or other user data are used.
+
+Every byte outside `0x9000`–`0xcfff` matches the corresponding published complete
+installer. Existing released application, bootloader, production partition table,
+OTA metadata and factory boot selection are unchanged. Product identity lies
+outside the image; cloud activation is not bypassed. Full image hashes:
+
+| Profile | Bytes | SHA-256 |
+| --- | --- | --- |
+| m09-s3-hw210 | 2262000 | `57a62272778735ea96c3a7f109f169a9baf4629a515baf5eb55dc9c2d8e4c948` |
+| m301-c5-rtc-v1-5g | 14745604 | `3ae7fc7bc68f1cb8ba83b5c3a81e5c1c970ce20b88073bdf2be57e904f0d2bb0` |
+
+Package contents, ZIP CRC and inner/outer checksums pass. Repository boundaries
+and all 11 host tests pass. These tests do not establish an actual RF association
+or cold-boot network acceptance; those remain a physical test for the owner.
+The earlier application and full-installation limitations continue to apply.
