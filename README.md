@@ -14,7 +14,7 @@ Multi-generation FoloToy MagicBox hardware BSPs. Select **model + chip + PCB rev
 | `c5-reference-m301-hw120` | Historical C5 / source HW1.2.0 | ESP-IDF 5.5.3 | Separate legacy reference |
 | `m301-c5-rtc-v1-5g` | M301 / ESP32-C5 / RTC-v1-5G source | ESP-IDF 6.1 | Owner-confirmed model; physical PCB revision pending |
 
-`main` contains BSPs, minimal entry points and separate hardware diagnostics. The [`demo/magicbox`](https://github.com/FoloToy/MagicBox/tree/demo/magicbox) branch adds MagicBox firmware with XiaoZhi protocol compatibility. The current BSPs and MagicBox firmware use native ESP-IDF. M09's original Arduino implementation is available in the archived [magicbox-arduino repository](https://github.com/FoloToy/magicbox-arduino). M301 C5 now has an independent application port; physical acceptance is pending. [M301 firmware guide](apps/xiaozhi/main/boards/folotoy/magicbox-c5/README.md).
+`main` contains BSPs, minimal entry points and separate hardware diagnostics. The [`demo/magicbox`](https://github.com/FoloToy/MagicBox/tree/demo/magicbox) branch adds MagicBox firmware with XiaoZhi protocol compatibility. The current BSPs and MagicBox firmware use native ESP-IDF. M09's original Arduino implementation is available in the archived [magicbox-arduino repository](https://github.com/FoloToy/magicbox-arduino). M301 C5 has an independent application port with recorded boot and owner-confirmed cloud dialogue; the remaining peripheral checks are listed in its guide. [M301 firmware guide](apps/xiaozhi/main/boards/folotoy/magicbox-c5/README.md).
 
 ## Branches
 
@@ -29,6 +29,11 @@ Multi-generation FoloToy MagicBox hardware BSPs. Select **model + chip + PCB rev
 MagicBox releases start at **v0.1** (embedded version `0.1.0`), independently of upstream version numbers. Product filenames identify the model, chip, PCB revision and MagicBox version. XiaoZhi denotes the currently supported protocol.
 
 [GitHub Releases](https://github.com/FoloToy/MagicBox/releases) · [Supported hardware and update instructions](docs/FIRMWARE_RELEASES.md)
+
+| Hardware | Release |
+| --- | --- |
+| M09 · ESP32-S3 · HW2.1.0 | [v0.1](https://github.com/FoloToy/MagicBox/releases/tag/v0.1) |
+| M301 · ESP32-C5 · RTC-v1-5G source board | [v0.1-m301](https://github.com/FoloToy/MagicBox/releases/tag/v0.1-m301) |
 
 ## Network setup
 

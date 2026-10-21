@@ -55,6 +55,51 @@ Wi-Fi provisioning. Voice is push-to-talk; Mode changes the conversation mode.
 The source version has prior M09 device acceptance for provisioning, activation,
 voice, buttons and volume, and was used in the Magic Server conversation tests.
 Each release manifest separately records whether that exact binary was flashed;
-a new build is not new physical acceptance. C5's sales model remains unconfirmed
-and its XiaoZhi port is not released. Other S3 PCB revisions need their own
-profiles. See [validation](VALIDATION.md) and [build instructions](MAGICBOX.md).
+a new build is not new physical acceptance. M301 C5 has a separate release
+below. Other S3 PCB revisions need their own profiles. See [validation](VALIDATION.md) and [build instructions](MAGICBOX.md).
+
+## MagicBox v0.1 · M301
+
+[Download the M301 prerelease](https://github.com/FoloToy/MagicBox/releases/tag/v0.1-m301).
+The hardware suffix distinguishes this release tag from the existing M09 `v0.1`.
+Both use application version `0.1.0`.
+
+| Item | Value |
+| --- | --- |
+| Profile | `m301-c5-rtc-v1-5g` |
+| Hardware | MagicBox M301 · ESP32-C5 · 16 MB flash · 4 MB Quad PSRAM |
+| Source board | `magicbox_rtc_v1_5G`; physical PCB revision unconfirmed |
+| Source branch | `demo/magicbox` |
+| Firmware source | `4f0d49c4e0cb2a3a3cbb5652fc8cf75f32545c02` |
+| SDK | ESP-IDF 6.1 |
+| Application BIN | `magicbox-m301-c5-rtc-v1-5g-v0.1.bin` |
+| Server | `https://magic.folotoy.cn/xiaozhi/ota/` |
+| Provisioning | `FoloToy-XXXX`, then `http://192.168.4.1` |
+| SHA-256 | `19109e0b87ddedc8ebf7c74cb904c0fbe37b7fb7d410e3b2fa914d64eb9533b3` |
+
+The BIN is the exact 1,849,104-byte application previously installed on the tested
+M301. Boot/PSRAM/AXP2101/ES8311 initialization was observed, and the owner confirmed
+cloud dialogue. Publication reuses those bytes rather than rebuilding them.
+The ZIP contains the application, bilingual instructions, manifest, checksums and
+MIT notices. It contains no bootloader, partition table, factory image, saved
+Wi-Fi, product identity or device backup.
+
+On the previously inspected M301 layout, app0 is `0x610000` with a 4 MB capacity.
+This differs from M09. Independently verify the complete profile, actual partition
+map and active boot slot, and privately back up the device before updating.
+Only for a device with the verified app0 layout and boot selection:
+
+```sh
+python -m esptool --chip esp32c5 --port PORT write-flash 0x610000 magicbox-m301-c5-rtc-v1-5g-v0.1.bin
+```
+
+Writing an application does not select its boot slot. Preserve factory, identity,
+NVS, partition table and OTA selection; an unprovisioned chip needs a separate
+installation plan. This release does not flash a device or enable automatic OTA.
+
+Voice is push-to-talk. Mode toggles conversation; hold it for one second for
+Wi-Fi provisioning. The knob controls volume. M301 does not enable M09's motion
+wake, automatic sleep, wake words or AEC. RTC/GX8002 APIs, battery behavior,
+Mode/knob range, fresh activation and reconnect remain separate acceptance items.
+The older `c5-reference-m301-hw120` profile is not interchangeable with this
+source-derived M301 power configuration.

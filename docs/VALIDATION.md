@@ -116,3 +116,31 @@ User authorized installation of the newly prepared M301 firmware. A complete 16 
 Application: 1,849,104 bytes, SHA256 `19109e0b87ddedc8ebf7c74cb904c0fbe37b7fb7d410e3b2fa914d64eb9533b3`. esptool verified the written application. Separate post-write/before-first-boot verification confirmed the full factory partition, product identity NVS, partition table and original application settings unchanged against the private backup. OTA selection is the intentional metadata change; subsequent application startup may create its normal settings.
 
 Fresh device evidence: the selected app boots on M301 C5, detects 4 MB PSRAM, reports AXP2101 initialization success, opens ES8311 at 24 kHz mono and starts the explicitly named M301 board/audio adapter. No panic was observed in the initial capture. Wi-Fi scanning started. Audible audio, physical controls, provisioning, activation, cloud dialogue, reconnect and power/sleep/RTC/wake-chip behavior remain separate acceptance items. This is application boot evidence, not acceptance of the standalone diagnostic or every BSP peripheral. Raw serial/security/flash logs and backups remain private outside Git.
+
+## 2026-10-21 M301 v0.1 release package
+
+Build: reuses the original ESP-IDF 6.1 application from `4f0d49c`; no new build
+or flash was performed for publication. Application size is 1,849,104 bytes,
+SHA256 `19109e0b87ddedc8ebf7c74cb904c0fbe37b7fb7d410e3b2fa914d64eb9533b3`.
+Current esptool inspection validates ESP32-C5, 16 MB flash, version `0.1.0`,
+image checksum and validation hash. Image fits the inspected 4 MB app0 slot at
+`0x610000`; the published guide distinguishes it from M09.
+
+Host: repository boundary checks and all 11 repository tests pass. All 126
+application host tests complete successfully with 2 conditional skips after
+activating the existing IDF Python environment; an initial run without the
+venv PATH could not launch six CI-selection subprocesses. Package contents,
+ZIP CRC, embedded application bytes and SHA-256 files are validated. Only the
+application, bilingual instructions, manifest, hashes and MIT notices are in the
+archive; device backups, settings, identity and factory images remain private.
+
+Inherited device evidence for these exact bytes: the installation/boot record
+above, plus the owner's confirmation that M301 was usable for cloud dialogue.
+After a server-side reply fix, the owner confirmed a complete response without
+an appended apology. This is not additional device testing during publication.
+The remaining Mode/knob, fresh setup/activation, reconnect, battery/USB and
+RTC/GX8002 limits are preserved in the [release guide](FIRMWARE_RELEASES.md#magicbox-v01--m301).
+
+Publication: independent prerelease tag `v0.1-m301` on `demo/magicbox`; the tag
+includes release documentation while application and BSP runtime source remain
+unchanged from `4f0d49c`. No automatic OTA or device reset is configured.

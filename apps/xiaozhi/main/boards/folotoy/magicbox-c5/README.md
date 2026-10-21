@@ -42,4 +42,9 @@ No automatic PMU sleep, motion wake, external Mode mapping, wake-word model, AEC
 
 No flashing, erasure, factory replacement or device/account activation is performed by this change. Before a separately authorized update: verify the physical PCB and boot slot, back up the existing app/settings/identity privately, validate the C5 image checksum/size and update only the approved application slot. Preserve the partition table, factory app, filesystem and product NVS. Never use a merged image on the production unit.
 
-Physical acceptance remains pending: boot/PSRAM/peripheral detection, audible prompts, Voice capture/playback, Mode, knob direction/endpoints, Wi-Fi provisioning, activation, dialogue, reconnect, battery/USB behavior and restart persistence. The M09's earlier hardware acceptance does not apply to M301.
+The exact v0.1 image (`19109e0b87ddedc8ebf7c74cb904c0fbe37b7fb7d410e3b2fa914d64eb9533b3`)
+was installed on M301: boot, 4 MB PSRAM, AXP2101 and ES8311 initialization were
+observed, and the owner confirmed cloud dialogue. Mode, knob endpoints, fresh
+provisioning/activation, reconnect, battery/USB, restart persistence and RTC/GX8002
+behavior still need separate acceptance. No M09-only hardware evidence is applied
+to M301. See the [M301 release guide](../../../../../../docs/FIRMWARE_RELEASES.md#magicbox-v01--m301).

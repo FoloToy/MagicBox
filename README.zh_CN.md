@@ -17,7 +17,7 @@
 | `m301-c5-rtc-v1-5g` | M301 / ESP32-C5 / RTC-v1-5G 来源板型 | ESP-IDF 6.1 | 用户确认型号；实物 PCB 版本待核对 |
 
 - `main`：BSP、最小入口、独立硬件诊断示例。
-- `demo/magicbox` 分支：继承 main，加入兼容小智协议的 MagicBox 固件。目前 M09 移植有历史实机记录；新增 M301 C5 独立应用适配，实机验收待完成。[M301 固件说明](apps/xiaozhi/main/boards/folotoy/magicbox-c5/README.zh_CN.md)。
+- `demo/magicbox` 分支：继承 main，加入兼容小智协议的 MagicBox 固件。目前 M09 移植有历史实机记录；M301 C5 独立应用已有启动记录及用户确认的云端对话，其他外设仍需按说明独立验收。[M301 固件说明](apps/xiaozhi/main/boards/folotoy/magicbox-c5/README.zh_CN.md)。
 原 Arduino 实现请查看已归档的 [magicbox-arduino 仓库](https://github.com/FoloToy/magicbox-arduino)。本仓库保留原生 ESP-IDF 实现；历史实机记录不代表新 BSP 已完成实机验收。
 
 ## 分支
@@ -33,6 +33,11 @@
 MagicBox 独立版本从 **v0.1** 开始，固件内版本为 `0.1.0`。下载文件按型号、芯片、PCB 版本和 MagicBox 版本命名；小智表示当前兼容的协议。
 
 [GitHub Releases](https://github.com/FoloToy/MagicBox/releases) · [适配型号与升级说明](docs/FIRMWARE_RELEASES.zh_CN.md)
+
+| 硬件 | 下载版本 |
+| --- | --- |
+| M09 · ESP32-S3 · HW2.1.0 | [v0.1](https://github.com/FoloToy/MagicBox/releases/tag/v0.1) |
+| M301 · ESP32-C5 · RTC-v1-5G 来源板型 | [v0.1-m301](https://github.com/FoloToy/MagicBox/releases/tag/v0.1-m301) |
 
 ## 网络配置
 

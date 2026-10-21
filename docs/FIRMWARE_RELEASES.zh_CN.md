@@ -48,5 +48,44 @@ Voice 用于按住说话，Mode 切换对话模式。
 
 此源码版本已有 M09 配网、激活、语音、按键、音量及 Magic Server 对话的真机验证记录。
 每个发布清单会另行注明该份二进制是否曾烧录，新构建不等于新增真机验收。
-C5 的销售型号尚未确认，小智移植尚未发布；其他 S3 PCB 也需独立配置。
+M301 C5 使用下方独立发布；其他 S3 PCB 也需独立配置。
 详见[验证记录](VALIDATION.md)和[构建说明](MAGICBOX.md)。
+
+## MagicBox v0.1 · M301
+
+[下载 M301 预发布版](https://github.com/FoloToy/MagicBox/releases/tag/v0.1-m301)。
+发布标签 `v0.1-m301` 用型号区分已有的 M09 `v0.1`，两者内部应用版本均为 `0.1.0`。
+
+| 项目 | 配置 |
+| --- | --- |
+| 硬件配置 | `m301-c5-rtc-v1-5g` |
+| 硬件 | MagicBox M301 · ESP32-C5 · 16 MB Flash · 4 MB Quad PSRAM |
+| 来源板型 | `magicbox_rtc_v1_5G`；实物 PCB 版本待确认 |
+| 源码分支 | `demo/magicbox` |
+| 固件源码 | `4f0d49c4e0cb2a3a3cbb5652fc8cf75f32545c02` |
+| SDK | ESP-IDF 6.1 |
+| 应用 BIN | `magicbox-m301-c5-rtc-v1-5g-v0.1.bin` |
+| 默认服务器 | `https://magic.folotoy.cn/xiaozhi/ota/` |
+| 配网 | 热点 `FoloToy-XXXX`，打开 `http://192.168.4.1` |
+| SHA-256 | `19109e0b87ddedc8ebf7c74cb904c0fbe37b7fb7d410e3b2fa914d64eb9533b3` |
+
+该 BIN 与此前已烧录至测试 M301 的 1,849,104 字节应用完全一致。日志确认启动、
+PSRAM、AXP2101 和 ES8311 初始化，用户确认可以进行云端对话。本次发布沿用相同
+二进制，不重新构建。ZIP 包含应用、中英文说明、清单、校验文件及 MIT 声明；
+不含 bootloader、分区表、原厂镜像、已保存网络、产品身份或设备备份。
+
+此前检查的 M301 分区中，app0 位于 `0x610000`，容量 4 MB，与 M09 不同。
+升级前须独立核对完整硬件配置、实际分区与当前启动槽，并私下备份设备。
+仅当实际设备的 app0 布局和启动选择均匹配时使用：
+
+```sh
+python -m esptool --chip esp32c5 --port PORT write-flash 0x610000 magicbox-m301-c5-rtc-v1-5g-v0.1.bin
+```
+
+写入应用不会自动选择启动槽。保留原厂应用、产品身份、NVS、分区表和 OTA 选择；
+空白芯片需要单独的安装方案。创建本次 Release 不会烧录设备或启用自动 OTA。
+
+Voice 按住说话，Mode 切换会话、长按一秒配网，旋钮控制音量。M301 未启用 M09
+的晃动唤醒、自动休眠、唤醒词或 AEC。RTC/GX8002、电池行为、Mode/旋钮全范围、
+从零激活及重连仍需独立验收。旧 `c5-reference-m301-hw120` 配置不能与此来源板型
+的供电配置混用。
