@@ -144,3 +144,10 @@ RTC/GX8002 limits are preserved in the [release guide](FIRMWARE_RELEASES.md#magi
 Publication: independent prerelease tag `v0.1-m301` on `demo/magicbox`; the tag
 includes release documentation while application and BSP runtime source remain
 unchanged from `4f0d49c`. No automatic OTA or device reset is configured.
+
+Published at [MagicBox v0.1 · M301](https://github.com/FoloToy/MagicBox/releases/tag/v0.1-m301).
+All four draft assets were downloaded and matched locally before publication;
+all four published assets were downloaded again and matched byte-for-byte.
+ZIP CRC/inner hashes and outer SHA-256 entries passed. The release is published
+(not draft), marked prerelease, and its tag points to `a034023`. Existing M09
+`v0.1` remains a separate published prerelease.
