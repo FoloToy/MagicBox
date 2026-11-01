@@ -1,0 +1,8 @@
+{
+  "baseline_commit": "cea0fc91d31dc586f31565e62024881fcc2c548b",
+  "unchanged_runtime_and_bsp_files": 196,
+  "product_configs_byte_identical": true,
+  "partition_csvs_byte_identical": true,
+  "project_descriptor": "magicbox 0.1.0",
+  "device_test_performed": false
+}

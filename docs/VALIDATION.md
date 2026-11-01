@@ -92,7 +92,7 @@ PASS: repository boundary checks, six profile/staging host tests and actual butt
 | baseline | 255072 | `856185d3b3b427ce53d54f5abee143e642d372e055cb1e61413fabf8f12a0675` |
 | hardware-demo | 357328 | `33f733b0e0a88d1b8ea95203d61d291dddae5de7448919b67ff06c31a2d8766a` |
 
-Read-only ROM identification: ESP32-C5NR4 rev1.0, 16 MB Flash, 4 MB embedded PSRAM. Read-only partition table matches the cited source (factory 0x210000, app0 0x610000, app1 0xA10000, product NVS 0xF20000). No flash/settings/identity write occurred. PCB revision, peripheral/audio/RTC/GX8002/power behavior need separate physical acceptance. [M301 board notes](../boards/m301-c5-rtc-v1-5g/README.md).
+Read-only ROM identification: ESP32-C5NR4 rev1.0, 16 MB Flash, 4 MB embedded PSRAM. Read-only partition table matches the cited source (factory 0x210000, app0 0x610000, app1 0xA10000, product NVS 0xF20000). No flash/settings/identity write occurred. PCB revision, peripheral/audio/RTC/GX8002/power behavior need separate physical acceptance. [M301 board notes](../main/boards/m301-c5-rtc-v1-5g/README.md).
 
 ## 2026-10-20 M301 MagicBox application port
 
@@ -107,7 +107,7 @@ PASS: repository boundary check; 11 profile/staging/CLI host tests, including cr
 | m09-s3-hw210 | 2196480 | `97b54f438bd851f55226c197fe523639f1c7a4881bdb76e2da92db7c6751e8fa` |
 | m301-c5-rtc-v1-5g | 1849104 | `19109e0b87ddedc8ebf7c74cb904c0fbe37b7fb7d410e3b2fa914d64eb9533b3` |
 
-PASS: final C5 image chip/version/checksum validation with esptool; Magic Server endpoint and independent board identity present; demo Wi-Fi absent; image fits the 4 MB slot; generated production partition entries match the inspected device. Model is owner-confirmed M301, physical PCB revision remains null. No flashing, erasure, activation, factory/identity update or cloud rollout occurred. Boot/audio/controls/knob/network/activation/dialogue/reconnect/battery/RTC/wake-chip acceptance remains pending; M09 physical results are inherited evidence. [M301 application guide](../apps/xiaozhi/main/boards/folotoy/magicbox-c5/README.md).
+PASS: final C5 image chip/version/checksum validation with esptool; Magic Server endpoint and independent board identity present; demo Wi-Fi absent; image fits the 4 MB slot; generated production partition entries match the inspected device. Model is owner-confirmed M301, physical PCB revision remains null. No flashing, erasure, activation, factory/identity update or cloud rollout occurred. Boot/audio/controls/knob/network/activation/dialogue/reconnect/battery/RTC/wake-chip acceptance remains pending; M09 physical results are inherited evidence. [M301 application guide](../main/boards/m301-c5-rtc-v1-5g/README.md).
 
 ## 2026-10-20 M301 app0 installation and first boot
 
@@ -209,3 +209,12 @@ Package contents, ZIP CRC and inner/outer checksums pass. Repository boundaries
 and all 11 host tests pass. These tests do not establish an actual RF association
 or cold-boot network acceptance; those remain a physical test for the owner.
 The earlier application and full-installation limitations continue to apply.
+
+
+## Dedicated root project reorganization (2026-11-01)
+
+Current structural/source, host and product/diagnostic build evidence is in
+[LAYOUT_MIGRATION.md](LAYOUT_MIGRATION.md) and
+[layout-validation.json](layout-validation.json). The runtime baseline of each
+repository is retained independently. Existing device evidence above remains
+historical; this reorganization did not flash hardware or revalidate peripherals.

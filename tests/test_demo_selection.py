@@ -7,7 +7,7 @@ class DemoSelection(unittest.TestCase):
         from build_xiaozhi import selection
         profile, directory, config, variant = selection('m301-c5-rtc-v1-5g')
         self.assertEqual(profile['target'], 'esp32c5')
-        self.assertEqual(directory, 'folotoy/magicbox-c5')
+        self.assertEqual(directory, 'm301-c5-rtc-v1-5g')
         self.assertEqual(config['type'], 'magicbox-m301-c5-rtc-v1-5g')
         self.assertEqual(variant, 'folotoy-magicbox-m301-c5-rtc-v1-5g')
         with self.assertRaisesRegex(ValueError, 'Variant does not belong'):

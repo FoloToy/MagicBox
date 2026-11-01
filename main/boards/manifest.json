@@ -1,0 +1,83 @@
+{
+  "schema_version": 1,
+  "profiles": [
+    {
+      "id": "m09-s3-hw210",
+      "model": "M09",
+      "hardware_revision": "2.1.0",
+      "target": "esp32s3",
+      "original_framework": "arduino",
+      "idf_series": "6.1",
+      "project": "diagnostics/m09-s3-hw210/baseline",
+      "pins": "main/boards/m09-s3-hw210/bsp/include/bsp_pins.h",
+      "model_mapping": "confirmed by owner",
+      "capabilities": [
+        "digital_i2s_audio",
+        "rgb",
+        "buttons",
+        "external_mode",
+        "knob",
+        "lis3dh_motion",
+        "internal_rtc"
+      ],
+      "validation": "Prior Arduino and XiaoZhi device tests; new standalone ESP-IDF BSP requires device acceptance.",
+      "hardware_demo": "diagnostics/m09-s3-hw210/hardware-demo",
+      "bsp": "main/boards/m09-s3-hw210/bsp",
+      "firmware": "main/boards/m09-s3-hw210/config.json"
+    },
+    {
+      "id": "c5-reference-m301-hw120",
+      "model": null,
+      "source_model": "M301",
+      "hardware_revision": "1.2.0",
+      "target": "esp32c5",
+      "original_framework": "esp-idf",
+      "idf_series": "5.5.3",
+      "project": "diagnostics/c5-reference-m301-hw120/baseline",
+      "pins": "main/boards/c5-reference-m301-hw120/bsp/include/bsp_pins.h",
+      "model_mapping": "pending owner confirmation; reference only",
+      "capabilities": [
+        "es8311_audio",
+        "rgb",
+        "buttons",
+        "knob",
+        "axp2101",
+        "bm8563_rtc",
+        "gx8002"
+      ],
+      "validation": "Source configuration and compiler only; physical unit not tested in this task.",
+      "hardware_demo": "diagnostics/c5-reference-m301-hw120/hardware-demo",
+      "bsp": "main/boards/c5-reference-m301-hw120/bsp",
+      "firmware": null
+    },
+    {
+      "id": "m301-c5-rtc-v1-5g",
+      "model": "M301",
+      "source_model": "M301",
+      "hardware_revision": null,
+      "target": "esp32c5",
+      "original_framework": "esp-idf",
+      "idf_series": "6.1",
+      "project": "diagnostics/m301-c5-rtc-v1-5g/baseline",
+      "pins": "main/boards/m301-c5-rtc-v1-5g/bsp/include/bsp_pins.h",
+      "model_mapping": "M301 confirmed by owner; physical PCB revision pending",
+      "capabilities": [
+        "es8311_audio",
+        "rgb",
+        "buttons",
+        "knob",
+        "axp2101",
+        "bm8563_rtc",
+        "gx8002"
+      ],
+      "validation": "Source configuration, IDF 6.1 builds and read-only silicon/partition identification; peripheral acceptance pending.",
+      "source_board": "magicbox_rtc_v1_5G",
+      "source_repository": "https://github.com/FoloToy/folotoy-firmware-idf",
+      "source_commit": "8c013c923b59f1123e762880100d62ccf7005907",
+      "hardware_revision_mapping": "Unknown; profile identifies source board magicbox_rtc_v1_5G, not an inferred HW1.2.0",
+      "hardware_demo": "diagnostics/m301-c5-rtc-v1-5g/hardware-demo",
+      "bsp": "main/boards/m301-c5-rtc-v1-5g/bsp",
+      "firmware": "main/boards/m301-c5-rtc-v1-5g/config.json"
+    }
+  ]
+}

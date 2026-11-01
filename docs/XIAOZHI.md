@@ -1,9 +1,12 @@
-# Build-guide location
+# XiaoZhi client provenance and historical branch
 
-The Magic Server product firmware is on `demo/magicbox`; its build guide is
-[MAGICBOX.md](MAGICBOX.md). The separately recreated original-service
-[`demo/xiaozhi`](https://github.com/FoloToy/MagicBox/tree/demo/xiaozhi) has its own
-[guide](https://github.com/FoloToy/MagicBox/blob/demo/xiaozhi/docs/XIAOZHI.md).
+MagicBox's shared client derives from the pinned native XiaoZhi import recorded
+in docs/upstream/UPSTREAM.md; its license and source notices remain intact.
+The current repository root is the Magic Server product, built with
+`python tools/build.py --board <complete-profile>`; see [the firmware guide](MAGICBOX.md).
 
-连接 Magic Server 的产品固件说明已移至 [MAGICBOX.md](MAGICBOX.md)。
-原小智服务移植位于独立的 `demo/xiaozhi` 分支。
+The public demo/xiaozhi branch retains the historical original-service port
+and its separately named OTA identity. This structural refactor does not rewrite
+that branch or change its service. It must not be selected by copying M09 pins
+onto an arbitrary S3 board. Current root profiles use their own declared
+hardware/variant identities and service settings.

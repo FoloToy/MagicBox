@@ -1,37 +1,65 @@
-name: MagicBox firmware
+name: MagicBox checks
 on: [push, pull_request, workflow_dispatch]
 permissions:
   contents: read
+concurrency:
+  group: magicbox-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 jobs:
+  host:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: sudo apt-get update && sudo apt-get install -y libcjson-dev libmbedtls-dev
+      - run: python tools/check_repo.py
+      - run: python -m unittest discover -s tests -v
+      - run: python -m unittest discover -s scripts/tests -v
+      - run: python diagnostics/c5-reference-m301-hw120/baseline/tests/run_button_tests.py
+      - run: python diagnostics/m301-c5-rtc-v1-5g/baseline/tests/run_button_tests.py
   firmware:
+    runs-on: ubuntu-latest
+    container: espressif/idf:release-v6.1
     strategy:
       fail-fast: false
       matrix:
         board: [m09-s3-hw210, m301-c5-rtc-v1-5g]
-    runs-on: ubuntu-latest
-    container:
-      image: espressif/idf:release-v6.1
     steps:
       - uses: actions/checkout@v4
-      - name: Host and explicit-board checks
-        shell: bash
+      - shell: bash
         run: |
           . "$IDF_PATH/export.sh"
-          python tools/check_repo.py
-          python -m unittest discover -s tests -v
-          cd apps/xiaozhi
-          python -m unittest discover -s scripts/tests -v
-      - name: Build explicit hardware variant
-        shell: bash
-        run: |
-          . "$IDF_PATH/export.sh"
-          ./tools/build_xiaozhi.sh --board '${{ matrix.board }}'
+          git config --global --add safe.directory "$GITHUB_WORKSPACE"
+          python tools/build.py --board '${{ matrix.board }}'
       - uses: actions/upload-artifact@v4
         with:
           name: magicbox-${{ matrix.board }}
-          path: |
-            apps/xiaozhi/build/xiaozhi.bin
-            apps/xiaozhi/build/xiaozhi.sha256
-            apps/xiaozhi/build/magicbox-build.json
-            apps/xiaozhi/build/partition_table/partition-table.bin
+          path: dist/
+          if-no-files-found: error
+  diagnostics:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - board: m09-s3-hw210
+            sdk: release-v6.1
+          - board: m301-c5-rtc-v1-5g
+            sdk: release-v6.1
+          - board: c5-reference-m301-hw120
+            sdk: v5.5.3
+    container: espressif/idf:${{ matrix.sdk }}
+    steps:
+      - uses: actions/checkout@v4
+      - shell: bash
+        run: |
+          . "$IDF_PATH/export.sh"
+          python tools/build.py --board '${{ matrix.board }}' --app baseline
+          python tools/build.py --board '${{ matrix.board }}' --app hardware-demo
+      - uses: actions/upload-artifact@v4
+        with:
+          name: diagnostics-${{ matrix.board }}
+          path: dist/
           if-no-files-found: error

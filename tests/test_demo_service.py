@@ -6,7 +6,7 @@ ROOT = Path(__file__).resolve().parents[1]
 
 class DemoService(unittest.TestCase):
     def test_magic_server_and_local_variants_remain_separate(self):
-        data = json.loads((ROOT/'apps/xiaozhi/main/boards/folotoy/magicbox/config.json').read_text())
+        data = json.loads((ROOT/'main/boards/m09-s3-hw210/config.json').read_text())
         self.assertEqual(data['type'], 'magicbox-m09-s3-hw210')
         builds = data['builds']
         self.assertEqual([b['name'] for b in builds], ['folotoy-magicbox-m09-s3-hw210', 'folotoy-magicbox-m09-s3-hw210-local'])
