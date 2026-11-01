@@ -1,0 +1,48 @@
+name: MagicBox BSP checks
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: bsp-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  host:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python tools/check_repo.py
+      - run: python -m unittest discover -s tests -v
+      - run: python examples/c5-reference-m301-hw120/minimal/tests/run_button_tests.py
+      - run: python examples/m301-c5-rtc-v1-5g/minimal/tests/run_button_tests.py
+  examples:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - board: m09-s3-hw210
+            sdk: release-v6.1
+          - board: m301-c5-rtc-v1-5g
+            sdk: release-v6.1
+          - board: c5-reference-m301-hw120
+            sdk: v5.5.3
+    container: espressif/idf:${{ matrix.sdk }}
+    steps:
+      - uses: actions/checkout@v4
+      - shell: bash
+        run: |
+          . "$IDF_PATH/export.sh"
+          python tools/build.py --board '${{ matrix.board }}' --app minimal
+          python tools/build.py --board '${{ matrix.board }}' --app hardware-demo
+      - uses: actions/upload-artifact@v4
+        with:
+          name: bsp-examples-${{ matrix.board }}
+          path: dist/${{ matrix.board }}/
+          if-no-files-found: error

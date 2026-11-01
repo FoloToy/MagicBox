@@ -1,3 +1,0 @@
-config BOARD_TYPE_FOLOTOY_MAGICBOX_M301_C5_RTC_V1_5G
-    bool "MagicBox m301-c5-rtc-v1-5g"
-    depends on IDF_TARGET_ESP32C5

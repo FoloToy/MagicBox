@@ -1,0 +1,7 @@
+{
+  "baseline_commit": "7b16c09",
+  "bsp_source_files_byte_identical": 39,
+  "example_bodies_defaults_and_partition_csvs_byte_identical": true,
+  "scope": "Public reusable BSP and hardware examples only",
+  "new_device_acceptance": false
+}

@@ -1,68 +1,62 @@
-# MagicBox
+# MagicBox BSP
 
-Native ESP-IDF MagicBox firmware for Magic Server. The repository root is the
-product project; hardware is selected by **model + chip + board revision**.
-[简体中文](README.zh_CN.md) · [Architecture](docs/ARCHITECTURE.md) ·
-[Adding hardware](docs/ADDING_BOARDS.md) · [Validation](docs/VALIDATION.md)
+Reusable native ESP-IDF board support for FoloToy MagicBox hardware. This
+repository provides **drivers, pin definitions and hardware examples** for
+building your own applications. [简体中文](README.zh_CN.md)
 
 ```text
-CMakeLists.txt           MagicBox IDF project, version 0.1.0
-main/
-  application.*          Shared conversation and lifecycle
-  protocols/             Magic Server clients
-  audio/                 Shared audio services and codecs
-  boards/
-    common/              Board/WifiBoard interfaces and helpers
-    m09-s3-hw210/         M09 adapter and authoritative BSP
-    m301-c5-rtc-v1-5g/    M301 adapter and authoritative BSP
-    c5-reference-m301-hw120/  Legacy reference BSP; no product build
-    manifest.json        Explicit hardware/SDK/diagnostic registry
-partitions/              Product partition layouts
-diagnostics/            Independent baseline and hardware-demo projects
-scripts/                 Resource generators and application regression tests
-tools/                   Explicit profile selection, build and packaging
-tests/                   Profile and build-tool tests
-docs/                    Hardware evidence, architecture and provenance
+boards/
+  manifest.json                    Explicit hardware / SDK registry
+  m09-s3-hw210/bsp/                 M09 · ESP32-S3 · HW2.1.0
+  m301-c5-rtc-v1-5g/bsp/            M301 · ESP32-C5 · source-board profile
+  c5-reference-m301-hw120/bsp/      Separate legacy C5 reference
+examples/<profile>/
+  minimal/                         Minimal peripheral bring-up
+  hardware-demo/                   Explicit hardware diagnostics
+tools/                            Build-only selection and validation
+tests/                             Profile, boundary and fault tests
+docs/                              Integration and hardware guidance
 ```
 
-| Profile | Target | Firmware SDK | Status |
+| Profile | Target | ESP-IDF | Scope |
 | --- | --- | --- | --- |
-| `m09-s3-hw210` | ESP32-S3 | IDF 6.1 | M09 / HW2.1.0, product + diagnostics |
-| `m301-c5-rtc-v1-5g` | ESP32-C5 | IDF 6.1 | M301 confirmed; physical PCB revision pending |
-| `c5-reference-m301-hw120` | ESP32-C5 | IDF 5.5.3 diagnostics only | Historical power/pin reference; no product firmware |
+| `m09-s3-hw210` | ESP32-S3 | 6.1 | M09 / HW2.1.0, direct I2S, controls and LIS3DH |
+| `m301-c5-rtc-v1-5g` | ESP32-C5 | 6.1 | M301 source board, ES8311, AXP2101, RTC and GX8002 |
+| `c5-reference-m301-hw120` | ESP32-C5 | 5.5.3 | Historical reference; separate PMU rail wiring |
 
-## Build
+A chip name is not a board profile. M301's physical PCB revision remains
+unconfirmed; the historical HW1.2.0 reference is not interchangeable with it.
+
+## Start with an example
 
 ```sh
 python3 tools/build.py --list-boards
 source /path/to/esp-idf-v6.1/export.sh
 python tools/build.py --board m09-s3-hw210
-python tools/build.py --board m301-c5-rtc-v1-5g
-python tools/build.py --board m09-s3-hw210 --app baseline
 python tools/build.py --board m09-s3-hw210 --app hardware-demo
+python tools/build.py --board m301-c5-rtc-v1-5g --app minimal
 ```
 
-A complete profile is mandatory. Product firmware is the default app; diagnostics
-are explicit. Artifacts live in `dist/<variant>/` or `dist/<profile>/<diagnostic>/`,
-with hashes and build metadata. Root images are named `magicbox.bin`; OTA board
-and variant identities remain unchanged. Build tools never flash or publish.
-The old `tools/build_xiaozhi.sh` remains a compatibility command.
+`--board` is mandatory. The default example is `minimal`; `--app baseline`
+remains an alias. Use IDF 5.5.3 for the legacy reference. Outputs are in
+`dist/<profile>/<example>/`, including the application, bootloader, table and
+checksummed build record. Builds never open a device or flash it.
 
-The standard variants discover Magic Server at
-`https://magic.folotoy.cn/xiaozhi/ota/`. Network provisioning uses the `FoloToy`
-hotspot prefix. Local-network variants remain explicit opt-ins. They are listed
-in each board's `config.json`; default firmware does not seed demo credentials.
+## Develop your application
 
-## Hardware boundaries
+Add **one** `boards/<profile>/bsp` directory to your application's
+`EXTRA_COMPONENT_DIRS`, then declare `REQUIRES bsp` in the consuming component.
+The examples demonstrate initialization and bus ownership. Board-specific
+peripheral APIs live in each BSP's `include/` directory.
 
-M09 uses direct digital I2S audio, RGB, buttons, a knob and LIS3DH. Its application
-owns the buses and only shares BSP headers; it must not initialize a second BSP
-audio owner. M301 uses its own ES8311/AXP2101/BM8563/GX8002 BSP. The old HW1.2.0
-reference has different PMU rail aliases and remains separate.
+Your application owns networking, service protocols, credentials, activation,
+OTA and interaction policy. The BSP initializes hardware only. Reuse its bus
+owners rather than initializing a second I2C/I2S owner.
 
-The public and internal repositories retain their own runtime baselines and
-variants. Source notices and upstream license remain in `docs/upstream/`.
-[Source and layout migration record](docs/LAYOUT_MIGRATION.md).
+[Integration guide](docs/INTEGRATION.md) · [Architecture](docs/ARCHITECTURE.md) ·
+[Add a board](docs/ADDING_BOARDS.md) · [Validation](docs/VALIDATION.md) ·
+[Source provenance](docs/PROVENANCE.md)
 
-Historical released files keep their original names and validation scope.
-Restructuring does not publish a release or establish new hardware acceptance.
+Example partition layouts are development fixtures. Review your actual device
+layout and backups before installing examples on an existing product. Historical
+application branches/releases remain history; current BSP development starts here.

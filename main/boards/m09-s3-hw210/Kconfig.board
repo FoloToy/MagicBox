@@ -1,3 +1,0 @@
-config BOARD_TYPE_FOLOTOY_MAGICBOX_M09_S3_HW210
-    bool "MagicBox m09-s3-hw210"
-    depends on IDF_TARGET_ESP32S3

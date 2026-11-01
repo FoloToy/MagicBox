@@ -1,0 +1,65 @@
+{
+  "date": "2026-11-01",
+  "scope": "Public BSP and consuming hardware examples only",
+  "host_tests_run": 12,
+  "host_failures": 0,
+  "c5_button_fault_tests": "both profiles passed",
+  "example_builds": [
+    {
+      "profile": "m09-s3-hw210",
+      "target": "esp32s3",
+      "app": "minimal",
+      "sdk": "ESP-IDF v6.1",
+      "sha256": "ebcbc97cdc50574fdb900dea5d549dbff8656ff762152f7b0ce688666617080b",
+      "size": 230272,
+      "device_validation": "not performed by build tool"
+    },
+    {
+      "profile": "m09-s3-hw210",
+      "target": "esp32s3",
+      "app": "hardware-demo",
+      "sdk": "ESP-IDF v6.1",
+      "sha256": "efc6ed929914e911e4d8fa021f8c9cd9de61dc681d9170dad00d8fbadef1e41b",
+      "size": 270432,
+      "device_validation": "not performed by build tool"
+    },
+    {
+      "profile": "c5-reference-m301-hw120",
+      "target": "esp32c5",
+      "app": "minimal",
+      "sdk": "ESP-IDF v5.5.3",
+      "sha256": "9107e0d6c45ebe400599e1418232e6ee5ea238108c0d64e020b905d05df3814f",
+      "size": 279984,
+      "device_validation": "not performed by build tool"
+    },
+    {
+      "profile": "c5-reference-m301-hw120",
+      "target": "esp32c5",
+      "app": "hardware-demo",
+      "sdk": "ESP-IDF v5.5.3",
+      "sha256": "c59b9b707d325d48044262f67828b9eea5defdefd1f41c98760d90e87766817f",
+      "size": 377040,
+      "device_validation": "not performed by build tool"
+    },
+    {
+      "profile": "m301-c5-rtc-v1-5g",
+      "target": "esp32c5",
+      "app": "minimal",
+      "sdk": "ESP-IDF v6.1",
+      "sha256": "468f891496ae61847cd894d637452468f3fd4dca8c7b3b1ef9cd89c23b4e2cbb",
+      "size": 255072,
+      "device_validation": "not performed by build tool"
+    },
+    {
+      "profile": "m301-c5-rtc-v1-5g",
+      "target": "esp32c5",
+      "app": "hardware-demo",
+      "sdk": "ESP-IDF v6.1",
+      "sha256": "1a0c4de9da995b46517476a85522681341b4fdfd0b9fd25132337aa7b9302298",
+      "size": 357328,
+      "device_validation": "not performed by build tool"
+    }
+  ],
+  "bsp_source_audit": "source-audit.json",
+  "new_device_acceptance": false
+}

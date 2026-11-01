@@ -5,7 +5,7 @@ from pathlib import Path
 from profiles import ROOT,profiles,select
 from staging import sync_tree
 
-def build_diagnostic(profile, app):
+def build_example(profile, app):
     def fail(message): raise ValueError(message)
     sdk=Path(os.environ.get('IDF_PATH',''))
     if not (sdk/'tools/idf.py').is_file(): fail('Source the profile ESP-IDF export.sh first')
@@ -13,7 +13,7 @@ def build_diagnostic(profile, app):
     if not re.search(r'v'+re.escape(profile['idf_series'])+r'(?:[.\s-]|$)',version):
         fail(profile['id']+' requires ESP-IDF '+profile['idf_series']+'; found '+version.strip())
     key=hashlib.sha256(str(ROOT).encode()).hexdigest()[:12]
-    cache=Path(tempfile.gettempdir())/('magicbox-diagnostics-'+key)/profile['id']/('idf-'+profile['idf_series'])
+    cache=Path(tempfile.gettempdir())/('magicbox-bsp-library-'+key)/profile['id']/('idf-'+profile['idf_series'])
     owner=cache/'.source.json'
     if cache.exists() and (not owner.exists() or json.loads(owner.read_text())!={'source':str(ROOT)}):
         fail('Refusing unowned build cache '+str(cache))
@@ -21,7 +21,7 @@ def build_diagnostic(profile, app):
     stage=cache/'project';stage.mkdir(exist_ok=True)
     sync_tree(ROOT,stage,
         ['.git','build','build-*','dist','managed_components','sdkconfig','sdkconfig.old','dependencies.lock','__pycache__','local'])
-    project=stage/(profile['project'] if app=='baseline' else profile['hardware_demo'])
+    project=stage/(profile['project'] if app=='minimal' else profile['hardware_demo'])
     build=cache/('build-'+app)
     env=os.environ.copy()
     env.pop('IDF_TARGET',None)

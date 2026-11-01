@@ -1,32 +1,39 @@
-# MagicBox
+# MagicBox BSP
 
-MagicBox 的原生 ESP-IDF 产品固件，直接接入 Magic Server。根目录是唯一产品主工程，
-板型按型号、芯片和电路板版本区分，不通过芯片名称猜测接线。
+供二次开发使用的原生 ESP-IDF 板级支持库：提供驱动、引脚定义、最小示例和硬件诊断。
+用户在 BSP 上实现自己的产品应用与服务对接。
 
-[English](README.md) · [架构](docs/ARCHITECTURE.md) · [新增板型](docs/ADDING_BOARDS.md)
+[English](README.md) · [接入指南](docs/INTEGRATION.md) · [架构](docs/ARCHITECTURE.md)
 
-- `main/application.*`、`protocols/`、`audio/`：公共应用、协议和音频服务。
-- `main/boards/common/`：公共板级接口。
-- `main/boards/m09-s3-hw210/`：M09 / ESP32-S3 / HW2.1.0，适配与 BSP 共置。
-- `main/boards/m301-c5-rtc-v1-5g/`：M301 / ESP32-C5 源板配置，物理 PCB 版本待确认。
-- `main/boards/c5-reference-m301-hw120/`：旧 C5 HW1.2 参考，不能作为 M301 产品配置。
-- `diagnostics/<profile>/baseline` 与 `hardware-demo`：独立最小入口与硬件诊断。
-- `partitions/`、`scripts/`、`tools/`、`tests/`、`docs/`：分区、资源、构建、测试与文档。
+- `boards/<profile>/bsp/`：每块电路板的独立驱动与公开头文件。
+- `boards/manifest.json`：型号、芯片、硬件版本、SDK 与示例路径登记。
+- `examples/<profile>/minimal/`：最小硬件初始化。
+- `examples/<profile>/hardware-demo/`：音频、按键、灯、旋钮等硬件诊断。
+- `tools/`、`tests/`、`docs/`：构建、边界检查、测试和二次开发说明。
+
+| 板型 | 芯片 | SDK |
+| --- | --- | --- |
+| M09 / HW2.1.0 | ESP32-S3 | IDF 6.1 |
+| M301 / RTC-v1-5G 源板配置 | ESP32-C5 | IDF 6.1 |
+| 旧 C5 / HW1.2 参考 | ESP32-C5 | IDF 5.5.3 |
+
+M301 的物理 PCB 版本仍待确认；旧 HW1.2 的电源轨配置单独保留。不能仅凭芯片相同混用板型。
 
 ```sh
 python3 tools/build.py --list-boards
 source /path/to/esp-idf-v6.1/export.sh
 python tools/build.py --board m09-s3-hw210
-python tools/build.py --board m301-c5-rtc-v1-5g
-python tools/build.py --board m301-c5-rtc-v1-5g --app baseline
-python tools/build.py --board m301-c5-rtc-v1-5g --app hardware-demo
+python tools/build.py --board m09-s3-hw210 --app hardware-demo
+python tools/build.py --board m301-c5-rtc-v1-5g --app minimal
 ```
 
-当前产品使用 IDF 6.1；旧 HW1.2 参考的诊断仍需要 IDF 5.5.3。
-`--board` 必填，默认构建产品固件；`--variant` 只能选择该板已有变体。
-产物为 `dist/<variant>/magicbox.bin`、合并镜像、ELF、分区表和校验记录。
-OTA 型号、变体名、分区与服务地址保持原有兼容边界。
+默认构建最小示例，`--app baseline` 兼容映射到 `minimal`。产物放在
+`dist/<profile>/<example>/`，构建工具不自动刷机。旧参考需切换至对应的 5.5.3 SDK。
 
-M09 与 M301 的引脚、音频、电源和唤醒方案分别管理；同芯片的其他 PCB 也必须
-新增完整 profile。公开版与私有版分别保留各自源码与功能变体，来源和许可证见
-[结构迁移记录](docs/LAYOUT_MIGRATION.md)。构建工具不自动刷机或发布。
+在自己的 IDF 项目中，将选定的 `boards/<profile>/bsp` 加入
+`EXTRA_COMPONENT_DIRS`，再通过 `REQUIRES bsp` 引用。具体步骤见
+[接入指南](docs/INTEGRATION.md)。网络、协议、账号、OTA 与产品交互由用户应用负责；
+BSP 仅负责硬件。各 BSP 只有一个引脚权威头文件，并复用既有 I2C/I2S 总线所有者。
+
+示例分区用于开发；安装到已有产品前需核对实际分区和备份。历史应用分支与发布保留为历史资料，
+当前 BSP 开发以这里的组件和示例为入口。

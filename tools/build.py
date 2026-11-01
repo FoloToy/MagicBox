@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
-"""Build one complete MagicBox hardware profile; no flash, publish or implicit chip selection."""
+"""Build explicit MagicBox BSP examples without selecting a product or service."""
 import argparse
 import subprocess
 from profiles import profiles, select
-from firmware_build import selection, build
+from build_bsp import build_example
 
 
 def main():
@@ -11,26 +11,21 @@ def main():
     parser.add_argument('--list', '--list-boards', dest='list_boards', action='store_true')
     parser.add_argument('--board')
     parser.add_argument('--target')
-    parser.add_argument('--variant')
-    parser.add_argument('--app', choices=['firmware', 'baseline', 'hardware-demo'], default='firmware')
+    parser.add_argument('--app', choices=['minimal', 'baseline', 'hardware-demo'], default='minimal',
+                        help='baseline is a compatibility alias for minimal')
     args = parser.parse_args()
     if args.list_boards:
         for p in profiles():
-            print(p['id'], p['target'], 'IDF ' + p['idf_series'],
-                  'firmware + diagnostics' if p.get('firmware') else 'reference diagnostics only')
+            print(p['id'], p['target'], 'ESP-IDF ' + p['idf_series'], 'BSP + examples')
         return 0
     if not args.board:
-        parser.error('--board is required; a chip does not identify a PCB')
+        parser.error('--board is required; a chip alone does not identify a PCB')
     try:
         profile = select(args.board, args.target)
-        if args.app != 'firmware':
-            if args.variant: parser.error('--variant applies only to product firmware')
-            from build_bsp import build_diagnostic
-            return build_diagnostic(profile, args.app)
-        profile, _, config, variant = selection(args.board, args.variant)
-        return build(profile, config, variant)
+        return build_example(profile, 'minimal' if args.app == 'baseline' else args.app)
     except (ValueError, RuntimeError, subprocess.CalledProcessError) as error:
         parser.exit(1, str(error) + '\n')
+    return 0
 
 
 if __name__ == '__main__':
