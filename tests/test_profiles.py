@@ -14,7 +14,7 @@ class Profiles(unittest.TestCase):
         p=select('c5-reference-m301-hw120')
         self.assertIsNone(p['model'])
         self.assertEqual(p['source_model'],'M301')
-        self.assertIsNone(p['firmware'])
+        self.assertNotIn('firmware',p)
     def test_m301_source_board_does_not_guess_pcb_revision(self):
         p=select('m301-c5-rtc-v1-5g','esp32c5')
         self.assertEqual(p['model'],'M301')

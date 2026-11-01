@@ -13,6 +13,4 @@ dist/
 .env
 .env.*
 local/
-main/assets/lang_config.h
-main/mmap_generate_*.h
 *.pyc

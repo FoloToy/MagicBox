@@ -1,46 +1,49 @@
 #!/usr/bin/env python3
-import json,re
+"""Validate explicit board ownership and a service-independent public BSP tree."""
+import json
+import re
 from pathlib import Path
-from profiles import ROOT,profiles
-errors=[];ids=set();pins=set()
-for p in profiles():
-    if p['id'] in ids: errors.append('Duplicate profile '+p['id'])
-    ids.add(p['id'])
-    if p['pins'] in pins: errors.append('Profiles must have independent pin authority')
-    pins.add(p['pins'])
-    if not (ROOT/p['pins']).is_file():errors.append('Missing pins '+p['id'])
-    if not (ROOT/p['project']/'CMakeLists.txt').is_file():errors.append('Missing project '+p['id'])
-    if not (ROOT/p['hardware_demo']/'CMakeLists.txt').is_file():errors.append('Missing hardware diagnostic '+p['id'])
-    if p['target'] not in ('esp32s3','esp32c5'):errors.append('Unknown target '+p['id'])
-    for f in (ROOT/p['bsp']).rglob('*'):
-        if f.suffix not in ('.cpp','.cc','.h','.hpp'):continue
-        text=f.read_text()
-        if re.search(r'Application::GetInstance|esp_mqtt_client_|PubSubClient|esp_ota_',text):
-            errors.append('Product logic in BSP: '+str(f.relative_to(ROOT)))
-        if re.search(r'(?i)\b(password|passwd|api_key|access_token|ssid)\b\s*[=:]\s*"[^"\n]+"',text):
-            errors.append('Possible credential: '+str(f.relative_to(ROOT)))
-    main=(ROOT/p['project']/'main/main.cpp').read_text()
-    if len(main.splitlines())>24 or re.search(r'\b(audio_begin|bsp_audio_init|esp_wifi_init|xTaskCreate)\s*\(',main):
-        errors.append('Default main must remain minimal: '+p['id'])
-# Product selection must use this exact profile's canonical adapter/BSP.
-product_types=set();product_names=set()
-for p in profiles():
-    if not p.get('firmware'): continue
-    path=ROOT/p['firmware']
-    if not path.is_file():
-        errors.append('Missing firmware configuration '+p['id']);continue
-    config=json.loads(path.read_text())
-    if config['target']!=p['target']:errors.append('Product/BSP target mismatch '+p['id'])
-    if config['type'] in product_types:errors.append('Duplicate OTA hardware type')
-    product_types.add(config['type'])
-    factories=sum(len(re.findall(r'\bDECLARE_BOARD\(',source.read_text())) for source in path.parent.glob('*.cc'))
-    if factories!=1:errors.append('Expected exactly one factory '+p['id'])
-    for build in config['builds']:
-        if build['name'] in product_names:errors.append('Duplicate firmware identity')
-        product_names.add(build['name'])
-        for option in build['sdkconfig_append']:
-            if option.startswith('CONFIG_PARTITION_TABLE_CUSTOM_FILENAME='):
-                if not (ROOT/json.loads(option.split('=',1)[1])).is_file():
-                    errors.append('Missing product partition CSV '+p['id'])
-if errors:raise SystemExit('\n'.join(errors))
-print('PASS: independent explicit profiles, minimal BSP entries, product/credential boundaries')
+from profiles import ROOT, profiles
+
+
+def check(root=ROOT):
+    errors=[]; ids=set(); pins=set()
+    entries=json.loads((root/'boards/manifest.json').read_text())['profiles']
+    for p in entries:
+        board=p['id']
+        if board in ids: errors.append('Duplicate profile '+board)
+        ids.add(board)
+        if p['pins'] in pins: errors.append('Shared pin authority '+board)
+        pins.add(p['pins'])
+        if p['bsp']!=f'boards/{board}/bsp' or p['pins']!=f'boards/{board}/bsp/include/bsp_pins.h':
+            errors.append('Noncanonical BSP/pin ownership '+board)
+        for key in ['pins','project','hardware_demo','bsp']:
+            if not (root/p[key]).exists(): errors.append('Missing '+key+' for '+board)
+        if 'firmware' in p or 'xiaozhi' in p:
+            errors.append('Product selection in BSP registry '+board)
+        if p['target'] not in ['esp32s3','esp32c5']:errors.append('Unknown chip '+board)
+        for project in [p['project'],p['hardware_demo']]:
+            cmake=root/project/'CMakeLists.txt'
+            if not cmake.exists() or p['bsp'] not in cmake.read_text():
+                errors.append('Example does not use canonical BSP '+project)
+        main=root/p['project']/'main/main.cpp'
+        if main.exists() and (len(main.read_text().splitlines())>24 or re.search(r'\b(audio_begin|bsp_audio_init|esp_wifi_init|xTaskCreate)\s*\(',main.read_text())):
+            errors.append('Minimal example starts application services '+board)
+    for folder in ['boards','examples']:
+        for f in (root/folder).rglob('*'):
+            if any(part in ['build','managed_components','__pycache__'] for part in f.parts):continue
+            if f.suffix not in ['.cpp','.cc','.c','.h','.hpp','.yml']:continue
+            text=f.read_text()
+            if re.search(r'Application::GetInstance|esp_mqtt_client_|PubSubClient|esp_ota_|esp_wifi_init|magic\.folotoy\.cn|78/esp-wifi-connect',text):
+                errors.append('Application/network/service coupling: '+str(f.relative_to(root)))
+            if re.search(r'(?i)\b(password|passwd|api_key|access_token|ssid)\b\s*[=:]\s*"[^"\n]+"',text):
+                errors.append('Credential in public BSP/example: '+str(f.relative_to(root)))
+    for name in ['main','apps','scripts','partitions']:
+        if (root/name).exists():errors.append('Product tree in BSP repository: '+name)
+    return errors
+
+
+if __name__=='__main__':
+    failures=check()
+    if failures:raise SystemExit('\n'.join(failures))
+    print('PASS: canonical BSP profiles, minimal examples, no product/service/credential coupling')

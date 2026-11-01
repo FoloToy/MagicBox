@@ -1,7 +1,0 @@
-{
-  "repository": "MagicBox",
-  "baseline_commit": "cea0fc91d31dc586f31565e62024881fcc2c548b",
-  "firmware_framework": "native ESP-IDF",
-  "layout_change": "Root product project, independent board/BSP profiles and standalone diagnostics",
-  "device_test_performed": false
-}
