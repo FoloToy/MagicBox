@@ -3,7 +3,7 @@ import json
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]
 def profiles():
-    return json.loads((ROOT/'boards/manifest.json').read_text())['profiles']
+    return json.loads((ROOT/'main/boards/manifest.json').read_text())['profiles']
 def select(name, target=None):
     matches=[p for p in profiles() if p['id']==name]
     if len(matches)!=1: raise ValueError('Unknown hardware profile: '+str(name))

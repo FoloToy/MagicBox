@@ -1,46 +1,68 @@
 # MagicBox
 
-<p align="center">
-  <img src="docs/images/magicbox-overview.png" alt="MagicBox kit, devices and hands-on clay creation" width="960">
-</p>
+Native ESP-IDF MagicBox firmware for Magic Server. The repository root is the
+product project; hardware is selected by **model + chip + board revision**.
+[简体中文](README.zh_CN.md) · [Architecture](docs/ARCHITECTURE.md) ·
+[Adding hardware](docs/ADDING_BOARDS.md) · [Validation](docs/VALIDATION.md)
 
-Multi-generation FoloToy MagicBox hardware BSPs. Select **model + chip + PCB revision**, not chip alone. [中文说明](README.zh_CN.md) · [Architecture](docs/ARCHITECTURE.md) · [Validation](docs/VALIDATION.md)
-
-| Profile | Hardware | SDK | Status |
-|---|---|---|---|
-| `m09-s3-hw210` | M09 / ESP32-S3 / HW2.1.0 | ESP-IDF 6.1 | Owner-confirmed model; original firmware was Arduino |
-| `c5-reference-m301-hw120` | Historical C5 / source HW1.2.0 | ESP-IDF 5.5.3 | Separate legacy reference |
-| `m301-c5-rtc-v1-5g` | M301 / ESP32-C5 / RTC-v1-5G source | ESP-IDF 6.1 | Owner-confirmed model; physical PCB revision pending |
-
-`main` contains BSPs, minimal entry points and separate hardware diagnostics. The [`demo/magicbox`](https://github.com/FoloToy/MagicBox/tree/demo/magicbox) branch adds MagicBox firmware with XiaoZhi protocol compatibility. The current BSPs and MagicBox firmware use native ESP-IDF. M09's original Arduino implementation is available in the archived [magicbox-arduino repository](https://github.com/FoloToy/magicbox-arduino). C5 BSP availability does not imply a validated C5 XiaoZhi port.
-
-## Branches
-
-| Branch | Purpose |
-|---|---|
-| `main` | BSPs, minimal entry points and hardware diagnostics |
-| [`demo/magicbox`](https://github.com/FoloToy/MagicBox/tree/demo/magicbox) | MagicBox firmware for Magic Server |
-| [`demo/xiaozhi`](https://github.com/FoloToy/MagicBox/tree/demo/xiaozhi) | Pinned upstream XiaoZhi functionality and original service |
-
-[Branch/service guide](docs/BRANCHES.md).
-
-## Firmware downloads
-
-[MagicBox v0.1](https://github.com/FoloToy/MagicBox/releases/tag/v0.1) uses an independent MagicBox version scheme. Download filenames identify the hardware and MagicBox version. The current M09 firmware is compatible with the XiaoZhi protocol. [Update guide](https://github.com/FoloToy/MagicBox/blob/demo/magicbox/docs/FIRMWARE_RELEASES.md).
-
-```sh
-python3 tools/build.py --list
-# Activate the SDK required by the selected profile, then:
-source /path/to/esp-idf-v6.1/export.sh
-python tools/build.py --board m09-s3-hw210 --app baseline
-python tools/build.py --board m09-s3-hw210 --app hardware-demo
-# C5 uses the same ESP-IDF 6.1 environment:
-python tools/build.py --board m301-c5-rtc-v1-5g --app baseline
-python tools/build.py --board m301-c5-rtc-v1-5g --app hardware-demo
+```text
+CMakeLists.txt           MagicBox IDF project, version 0.1.0
+main/
+  application.*          Shared conversation and lifecycle
+  protocols/             Magic Server clients
+  audio/                 Shared audio services and codecs
+  boards/
+    common/              Board/WifiBoard interfaces and helpers
+    m09-s3-hw210/         M09 adapter and authoritative BSP
+    m301-c5-rtc-v1-5g/    M301 adapter and authoritative BSP
+    c5-reference-m301-hw120/  Legacy reference BSP; no product build
+    manifest.json        Explicit hardware/SDK/diagnostic registry
+partitions/              Product partition layouts
+diagnostics/            Independent baseline and hardware-demo projects
+scripts/                 Resource generators and application regression tests
+tools/                   Explicit profile selection, build and packaging
+tests/                   Profile and build-tool tests
+docs/                    Hardware evidence, architecture and provenance
 ```
 
-Builds stage into an owned whitespace-free cache and export profile-labelled artifacts under `build/<profile>/<app>`. Build tools never flash. Development partition layouts must not be applied to production units without checking identity/factory preservation. A new S3 PCB needs a new profile and independent validation.
+| Profile | Target | Firmware SDK | Status |
+| --- | --- | --- | --- |
+| `m09-s3-hw210` | ESP32-S3 | IDF 6.1 | M09 / HW2.1.0, product + diagnostics |
+| `m301-c5-rtc-v1-5g` | ESP32-C5 | IDF 6.1 | M301 confirmed; physical PCB revision pending |
+| `c5-reference-m301-hw120` | ESP32-C5 | IDF 5.5.3 diagnostics only | Historical power/pin reference; no product firmware |
 
-M09: direct digital I2S microphone/speaker, RGB, Mode/Voice, external Mode, knob, LIS3DH. C5 reference: ES8311, AXP2101, BM8563 RTC, GX8002, RGB, buttons and knob. These devices/pins/power sequences are not interchangeable. See profile pin headers and upstream provenance in the validation document.
+## Build
 
-[C5 hardware and source notes](boards/m301-c5-rtc-v1-5g/README.md).
+```sh
+python3 tools/build.py --list-boards
+source /path/to/esp-idf-v6.1/export.sh
+python tools/build.py --board m09-s3-hw210
+python tools/build.py --board m301-c5-rtc-v1-5g
+python tools/build.py --board m09-s3-hw210 --app baseline
+python tools/build.py --board m09-s3-hw210 --app hardware-demo
+```
+
+A complete profile is mandatory. Product firmware is the default app; diagnostics
+are explicit. Artifacts live in `dist/<variant>/` or `dist/<profile>/<diagnostic>/`,
+with hashes and build metadata. Root images are named `magicbox.bin`; OTA board
+and variant identities remain unchanged. Build tools never flash or publish.
+The old `tools/build_xiaozhi.sh` remains a compatibility command.
+
+The standard variants discover Magic Server at
+`https://magic.folotoy.cn/xiaozhi/ota/`. Network provisioning uses the `FoloToy`
+hotspot prefix. Local-network variants remain explicit opt-ins. They are listed
+in each board's `config.json`; default firmware does not seed demo credentials.
+
+## Hardware boundaries
+
+M09 uses direct digital I2S audio, RGB, buttons, a knob and LIS3DH. Its application
+owns the buses and only shares BSP headers; it must not initialize a second BSP
+audio owner. M301 uses its own ES8311/AXP2101/BM8563/GX8002 BSP. The old HW1.2.0
+reference has different PMU rail aliases and remains separate.
+
+The public and internal repositories retain their own runtime baselines and
+variants. Source notices and upstream license remain in `docs/upstream/`.
+[Source and layout migration record](docs/LAYOUT_MIGRATION.md).
+
+Historical released files keep their original names and validation scope.
+Restructuring does not publish a release or establish new hardware acceptance.

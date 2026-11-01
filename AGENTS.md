@@ -1,9 +1,21 @@
 # MagicBox development
 
-Read `boards/manifest.json` and `docs/ARCHITECTURE.md`. Start with git status and preserve local changes. Explicitly select a complete hardware profile; a chip type alone is not a board identifier. Never reuse M09 pins for another S3 PCB. Each profile owns its canonical `bsp_pins.h`; framework adapters reference it.
+Start with git status and preserve local work. Read main/boards/manifest.json,
+docs/ARCHITECTURE.md, docs/ADDING_BOARDS.md and main/AGENTS.md. The root is the
+native IDF product project. Select complete model/chip/PCB profiles explicitly.
+Each main/boards/<profile>/bsp owns its canonical pins; diagnostics reference
+that same BSP. Never reuse M09 pins/power sequences for another S3 PCB or the
+historical C5 rails for M301. Product logic/credentials do not belong in BSPs.
 
-`main` contains BSPs, minimal entry points and opt-in hardware diagnostics. Product/network applications belong on demo branches. Never put cloud credentials, device identity, OTA policy or account state in a BSP. Reuse bus owners; callbacks/ISRs only queue work. PMU rail sequencing and codec directions are board-specific.
+Run python3 tools/check_repo.py, root tests and scripts/tests. Build the affected
+products and baseline/diagnostics with the SDK declared per profile. Product
+builds use tools/build.py --board <profile>; diagnostics require --app. IDF 6.1
+is used for products, while the legacy reference retains 5.5.3. M09 product
+owns its buses; do not initialize a second BSP audio/bus owner.
 
-Run `python3 tools/check_repo.py` and `python3 -m unittest discover -s tests`. Build the affected baseline and diagnostic with the SDK listed in the manifest. Test results must distinguish build, host, inherited device evidence and newly verified device evidence. Do not claim C5 hardware acceptance from compilation. No automatic flash: require authorization for exact profile, image and partition impact; preserve production identity and factory images.
-
-On `demo/magicbox` or `demo/xiaozhi`, read `apps/xiaozhi/AGENTS.md` before modifying the application. Explicitly select an independently named board/OTA variant. Keep raw logs and backups outside this repository.
+Keep runtime sources from this repository's own baseline. Preserve independent
+variants, board/OTA identities, partition layouts and source/license notices.
+Do not transfer private implementation into the public repository. Distinguish
+build, host, inherited device evidence and new device acceptance. Raw logs,
+backups, real credentials and identities remain outside Git. No automatic
+flash: exact profile, image/range authorization and restorable backup required.

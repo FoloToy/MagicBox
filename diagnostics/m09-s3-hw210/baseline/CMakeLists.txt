@@ -1,0 +1,8 @@
+cmake_minimum_required(VERSION 3.16)
+if(DEFINED IDF_TARGET AND NOT IDF_TARGET STREQUAL "esp32s3")
+    message(FATAL_ERROR "M09 HW2.1.0 requires ESP32-S3")
+endif()
+set(IDF_TARGET "esp32s3")
+set(EXTRA_COMPONENT_DIRS "${CMAKE_CURRENT_LIST_DIR}/../../../main/boards/m09-s3-hw210/bsp")
+include($ENV{IDF_PATH}/tools/cmake/project.cmake)
+project(magicbox_m09_s3_hw210)
